@@ -4,7 +4,7 @@ import { middlewaresConfig } from "@middlewares/index";
 
 import baseRouter from "@routes";
 import IUser from "./interfaces/IUser";
-
+import path = require("path");
 //global variables
 declare global {
   namespace Express {
@@ -18,7 +18,15 @@ const getApp = async () => {
   const app = express();
   await middlewaresConfig(app);
   await connectDB();
+  const staticPath = path.resolve(__dirname, "../../../frontend/dist");
+  app.use(express.static(staticPath));
 
+  app.get("*", (req, res, next) => {
+    if (!req.path.startsWith("/api")) {
+      return res.sendFile(path.join(staticPath, "index.html"));
+    }
+    next();
+  });
   app.use("/api", baseRouter());
 
   return app;
