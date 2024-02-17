@@ -20,7 +20,7 @@
       "@entity": ["./src/entity/index.ts"],
       "@interfaces": ["./src/interfaces/index.ts"],
       "@middlewares/*": ["./src/middlewares/*"],
-      "@routes": ["./src/routes/index.ts"],
+      "@routes/*": ["./src/routes/*"],
       "@controllers/*": ["./src/controllers/*"],
       "@utils": ["./src/utils/index.ts"],
       "@services": ["./src/services/index.ts"],

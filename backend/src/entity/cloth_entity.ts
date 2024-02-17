@@ -17,6 +17,9 @@ export default class ClothEntity extends BaseEntity implements ICloth {
   @Column({ nullable: false })
   user_id: number;
 
+  @Column({ nullable: false })
+  media_id: number; 
+
   @Column()
   description: string;
 
@@ -27,7 +30,7 @@ export default class ClothEntity extends BaseEntity implements ICloth {
   color_id: number; 
 
   @Column({ nullable: false })
-  material: number;
+  material_id: number;
 
   @Column({ nullable: false })
   no_of_wears: number;

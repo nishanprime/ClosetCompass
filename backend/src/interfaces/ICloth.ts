@@ -5,6 +5,7 @@ export default interface ICloth extends IBase {
   description: string;
   type_id: number;
   color_id: number;
-  material: number;
+  material_id: number;
   no_of_wears: number;
+  media_id: number;
 }

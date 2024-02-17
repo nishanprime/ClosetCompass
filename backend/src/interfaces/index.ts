@@ -13,6 +13,7 @@ import IOutfitLocation from "./IOutfitLocation";
 import ISpecialEvent from "./ISpecialEvent";
 import ISeason from "./ISeason";
 import ISeasonAndCloth from "./ISeasonAndCloth";
+import IMedia from "./IMedia";
 import ITag from "./ITag";
 export {
   IBase,
@@ -30,5 +31,6 @@ export {
   ISpecialEvent,
   ISeason,
   ISeasonAndCloth,
-  ITag
+  ITag,
+  IMedia,
 };

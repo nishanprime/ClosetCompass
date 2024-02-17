@@ -11,7 +11,7 @@ import OutfitLocationEntity from "./outfit_location.entity";
 import SpecialEventEntity from "./special_event.entity";
 import TagEntity from "./tag.entity";
 import UserEntity from "./user";
-
+import MediaEntity from "./media.entity";
 export default {
   UserEntity,
   ClothEntity,
@@ -26,6 +26,7 @@ export default {
   OutfitLocationEntity,
   SpecialEventEntity,
   OutfitAndSpecialEventEntity,
+  MediaEntity,
 };
 
 export {
@@ -42,4 +43,5 @@ export {
   OutfitLocationEntity,
   SpecialEventEntity,
   OutfitAndSpecialEventEntity,
+  MediaEntity,
 };
