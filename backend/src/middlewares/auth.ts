@@ -16,7 +16,7 @@ export const protect = async (
       res,
       status: 401,
       data: null,
-      message: "Login is required to access this! token",
+      message: "Login is required to access this!",
     });
   }
 
@@ -27,7 +27,7 @@ export const protect = async (
       res,
       status: 401,
       data: null,
-      message: "Login is required to access this! username",
+      message: "Login is required to access this!",
     });
   }
 
@@ -40,7 +40,7 @@ export const protect = async (
       res,
       status: 401,
       data: null,
-      message: "Login is required to access this! user",
+      message: "Login is required to access this!",
     });
   }
 
