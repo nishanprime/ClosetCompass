@@ -1,3 +1,3 @@
-import { DemoController } from "./demoControllers";
-
-export { DemoController };
+import AuthController from "./authController";
+import ClothController from "./clothController";
+export {  AuthController, ClothController };

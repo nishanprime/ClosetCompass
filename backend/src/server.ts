@@ -2,9 +2,9 @@ import express from "express";
 import connectDB from "./bootstrap/database";
 import { middlewaresConfig } from "@middlewares/index";
 
-import baseRouter from "@routes";
+import baseRouter from "@routes/index";
 import IUser from "./interfaces/IUser";
-
+import path = require("path");
 //global variables
 declare global {
   namespace Express {
@@ -18,6 +18,10 @@ const getApp = async () => {
   const app = express();
   await middlewaresConfig(app);
   await connectDB();
+
+  const mediaPath = path.resolve(__dirname, "../uploads");
+  console.log(mediaPath);
+  app.use("/uploads", express.static(mediaPath));
 
   app.use("/api", baseRouter());
 

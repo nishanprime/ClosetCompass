@@ -1,4 +1,4 @@
-import { IDemo } from "@interfaces";
+import { IClothAndTag } from "@interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,19 +9,16 @@ import {
   DeleteDateColumn,
 } from "typeorm";
 
-@Entity({ name: "demo_entity" })
-export default class DemoEntity extends BaseEntity implements IDemo {
+@Entity({ name: "color_and_tags_entity" })
+export default class ClothAndTagEntity extends BaseEntity implements IClothAndTag {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "varchar", length: 255 })
-  name: string;
+  @Column({ nullable: false })
+  cloth_id: number;
 
-  @Column({ type: "varchar", length: 255 })
-  description: string;
-
-  @Column({ type: "boolean", default: true })
-  isActive: boolean;
+  @Column({ nullable: false })
+  tag_id: number;
 
   // default columns
   @CreateDateColumn()
