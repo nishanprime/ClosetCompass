@@ -17,23 +17,17 @@ export default class ClothEntity extends BaseEntity implements ICloth {
   @Column({ nullable: false })
   user_id: number;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   media_id: number; 
 
   @Column()
   description: string;
 
   @Column({ nullable: false })
-  type_id: number;
-
-  @Column({ nullable: false })
-  color_id: number; 
-
-  @Column({ nullable: false })
-  material_id: number;
-
-  @Column({ nullable: false })
   no_of_wears: number;
+
+  @Column({ nullable: false })
+  wears_remaining: number;
 
   // default columns
   @CreateDateColumn()
