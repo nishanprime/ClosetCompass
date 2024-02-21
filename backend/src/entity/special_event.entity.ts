@@ -18,6 +18,9 @@ export default class SpecialEventEntity
   id: number;
 
   @Column({ nullable: false })
+  outfit_id: number;
+
+  @Column({ nullable: false })
   priority: number;
 
   @Column({ nullable: false })
