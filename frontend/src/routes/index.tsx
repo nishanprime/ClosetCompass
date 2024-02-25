@@ -7,11 +7,17 @@ import portalRoutes from "./portal";
 //layouts import
 import { PortalLayout } from "layouts";
 import NotFound from "components/NotFound";
+import MakeOutfitPage from "../pages/MakeOutfitPage.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <PortalLayout />,
+    children: portalRoutes,
+  },
+  {
+    path: "/makeOutfit",
+    element: <MakeOutfitPage/>,
     children: portalRoutes,
   },
 
