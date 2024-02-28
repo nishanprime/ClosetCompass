@@ -3,7 +3,6 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 const dynamicUpload = (field: string, folder: string = "default") => {
- 
   // let's define the storage options for multer
   const storage = multer.diskStorage({
     destination: (
@@ -27,7 +26,6 @@ const dynamicUpload = (field: string, folder: string = "default") => {
       const fileName = `${file.fieldname}-${Date.now()}${fileExt}`;
       cb(null, fileName);
     },
-    
   });
 
   // lets initialize the multer with the storage options
