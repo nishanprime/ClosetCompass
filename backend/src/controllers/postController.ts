@@ -1,11 +1,7 @@
-import { ClothEntity, MediaEntity } from "@entity";
+import { PostEntity, MediaEntity, LikesEntity, DislikesEntity } from "@entity";
 import {
   errorHandler,
-  generateToken,
-  removeCookie,
-  sendError,
   sendSuccess,
-  setCookie,
 } from "@utils";
 import argon2 from "argon2";
 import { Request, Response } from "express";
@@ -13,29 +9,32 @@ import UserEntity from "src/entity/user";
 import * as Yup from "yup";
 import path from "path";
 
-export const getAllClothes = async (req: Request, res: Response) => {
+export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    const cloths = await ClothEntity.find();
+    const posts = await PostEntity.find();
     return sendSuccess({
       res,
       message: "Clothes fetched successfully",
-      data: cloths,
+      data: posts,
     });
   } catch (error) {
     console.log(error);
     errorHandler(res, error);
   }
 };
-export const addCloth = async (req: Request, res: Response) => {
-  const { description, no_of_wears } = req.body;
+export const addPost = async (req: Request, res: Response) => {
+  const { text, privacy, outfit_id } = req.body;
 
   const schema = Yup.object().shape({
-    no_of_wears: Yup.number().required(
-      "Please enter the number of wears before washing"
+    outfit_id: Yup.number().required(
+        "Requires outfit_id to post"
+    ),
+    privacy: Yup.string().required(
+        "Provide privacy setting"
     ),
   });
   try {
-    await schema.validate({ no_of_wears });
+    await schema.validate({ privacy, outfit_id });
     const current_user = req.user;
     let media;
     // make sure to add host to the file path and url encode the file path
@@ -47,18 +46,18 @@ export const addCloth = async (req: Request, res: Response) => {
         media_type: file.mimetype.split("/")[1],
       }).save();
     }
-    const cloth = await ClothEntity.create({
+    const post = await PostEntity.create({
       user_id: current_user.id,
-      description,
-      no_of_wears,
-      wears_remaining: no_of_wears,
       media_id: (media ? media.id : null),
+      text,
+      outfit_id,
+      privacy,
     }).save();
     return sendSuccess({
       res,
-      message: "Cloth added successfully",
+      message: "Posted successfully",
       data: {
-        ...cloth,
+        ...post,
 
       },
     });
@@ -69,6 +68,6 @@ export const addCloth = async (req: Request, res: Response) => {
 };
 
 export default {
-  getAllClothes,
-  addCloth,
+  getAllPosts,
+  addPost,
 };

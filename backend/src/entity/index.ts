@@ -7,6 +7,9 @@ import SpecialEventEntity from "./special_event.entity";
 import TagEntity from "./tag.entity";
 import UserEntity from "./user";
 import MediaEntity from "./media.entity";
+import PostEntity from "./post.entity";
+import LikesEntity from "./likes.entity";
+import DislikesEntity from "./dislikes.entity";
 export default {
   UserEntity,
   ClothEntity,
@@ -17,6 +20,9 @@ export default {
   OutfitCalenderEntity,
   SpecialEventEntity,
   MediaEntity,
+  PostEntity,
+  LikesEntity,
+  DislikesEntity,
 };
 
 export {
@@ -29,4 +35,7 @@ export {
   OutfitCalenderEntity,
   SpecialEventEntity,
   MediaEntity,
+  PostEntity,
+  LikesEntity,
+  DislikesEntity,
 };

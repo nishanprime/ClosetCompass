@@ -15,6 +15,9 @@ import ISeason from "./ISeason";
 import ISeasonAndCloth from "./ISeasonAndCloth";
 import IMedia from "./IMedia";
 import ITag from "./ITag";
+import IPost from "./IPost";
+import ILikes from "./ILikes";
+import IDislikes from "./IDislikes";
 export {
   IBase,
   IUser,
@@ -33,4 +36,7 @@ export {
   ISeasonAndCloth,
   ITag,
   IMedia,
+  IPost,
+  ILikes,
+  IDislikes,
 };
