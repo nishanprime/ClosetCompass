@@ -1,8 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 import PortalHeader from "components/Layout/PortalHeader";
-import Redirect from "components/Redirect";
-import PortalSidebar from "components/Layout/PortalSidebar";
+//import Redirect from "components/Redirect";
+//import PortalSidebar from "components/Layout/PortalSidebar";
 import { useAppContext } from "contexts";
 
 const Layout = () => {
@@ -17,7 +17,6 @@ const Layout = () => {
         bg="brand.portalBackground"
       >
         <PortalHeader />
-        <PortalSidebar />
         <Flex
           w="full"
           h="100vh"
@@ -41,11 +40,15 @@ const Layout = () => {
   }
 
   return (
-    <Redirect
-      to="/auth/login"
-      redirect={window.location.href}
-      error="You must be logged in to view this page. Please log in or create an account."
-    />
+    <Flex
+      w="full"
+      h="100vh"
+      flexDirection="column"
+      overflowY="hidden"
+      bg="brand.portalBackground"
+    >
+      <PortalHeader />
+    </Flex>
   );
 };
 
