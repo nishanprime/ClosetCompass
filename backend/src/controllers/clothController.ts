@@ -74,7 +74,7 @@ export const addCloth = async (req: Request, res: Response) => {
       description,
       no_of_wears,
       wears_remaining: no_of_wears,
-      media_id: media ? media.id : undefined,
+      media_id: media ? media.id : null,
     }).save();
     return sendSuccess({
       res,
