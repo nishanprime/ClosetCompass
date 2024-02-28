@@ -14,7 +14,7 @@ export const getAllPosts = async (req: Request, res: Response) => {
     const posts = await PostEntity.find();
     return sendSuccess({
       res,
-      message: "Clothes fetched successfully",
+      message: "Posts fetched successfully",
       data: posts,
     });
   } catch (error) {
