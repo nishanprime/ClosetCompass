@@ -7,8 +7,8 @@ import authRoutes from "./auth";
 //layouts import
 import { PortalLayout, AuthLayout } from "layouts";
 import NotFound from "components/NotFound";
-import MakeOutfitPage from "../pages/MakeOutfitPage.tsx";
 import Logout from "pages/auth/logout";
+import MakeOutfitPage from "../pages/MakeOutfitPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,9 +28,8 @@ const router = createBrowserRouter([
   },
   {
     path: "logout",
-    element: <Logout />,
+    element: <Logout/>,
   },
-
   {
     path: "*",
     element: <NotFound />,

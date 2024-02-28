@@ -20,7 +20,7 @@ const getApp = async () => {
   await connectDB();
 
   const mediaPath = path.resolve(__dirname, "../uploads");
-  console.log(mediaPath);
+
   app.use("/uploads", express.static(mediaPath));
 
   app.use("/api", baseRouter());
