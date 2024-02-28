@@ -1,3 +1,4 @@
 import AuthController from "./authController";
 import ClothController from "./clothController";
-export {  AuthController, ClothController };
+import PostController from "./postController";
+export {  AuthController, ClothController, PostController };
