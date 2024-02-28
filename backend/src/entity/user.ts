@@ -17,6 +17,15 @@ export default class UserEntity extends BaseEntity implements IUser {
   id: number;
 
   @Column({ nullable: false })
+  first_name: string;
+
+  @Column({ nullable: false })
+  last_name: string;
+
+  @Column({ nullable: false, unique: true })
+  email: string;
+
+  @Column({ nullable: false, unique: true})
   username: string;
 
   @Column({ nullable: false })

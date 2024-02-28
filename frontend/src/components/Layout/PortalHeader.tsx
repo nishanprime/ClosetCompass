@@ -2,7 +2,7 @@ import { Flex, Link } from "@chakra-ui/react";
 
 import { NavLink } from "react-router-dom";
 
-
+import UserMenu from "./UserMenu";
 const PortalHeader = () => {
   return (
     <Flex
@@ -19,8 +19,9 @@ const PortalHeader = () => {
     >
       <Flex w="full" justify="space-between" align="center">
         <Link as={NavLink} to="/">
-          This is the PortalHeader component
+          This is the PortalHeader component | Here comes the logo
         </Link>
+        <UserMenu />
       </Flex>
     </Flex>
   );

@@ -5,6 +5,7 @@ import { ChakraProvider, createStandaloneToast } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import theme from "configs/theme";
 import "./index.css";
+import { AppProvider } from "contexts";
 
 const { ToastContainer } = createStandaloneToast();
 
@@ -22,7 +23,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme} cssVarsRoot="body">
-        <App />
+        <AppProvider>
+          <App />
+        </AppProvider>
         <ToastContainer />
       </ChakraProvider>
     </QueryClientProvider>

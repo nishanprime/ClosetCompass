@@ -1,5 +1,5 @@
 import axios from "axios";
 axios.defaults.withCredentials = true;
 axios.defaults.params = {};
-
-export {};
+import AuthService from "./AuthService"
+export {AuthService};
