@@ -1,15 +1,12 @@
 import { Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-
-// import { AppealProvider, useAppContext } from "contexts";
 import PortalHeader from "components/Layout/PortalHeader";
 import Redirect from "components/Redirect";
 import PortalSidebar from "components/Layout/PortalSidebar";
+import { useAppContext } from "contexts";
 
 const Layout = () => {
-  // TODO: setup context with user
-  //   const { user } = useAppContext();
-  const user = true;
+  const { user } = useAppContext();
   if (user) {
     return (
       <Flex
@@ -54,11 +51,11 @@ const Layout = () => {
 
 const PortalLayout = () => {
   return (
-    // TODO: setup context/provider AppealProvider
-    // TODO: and wrap the layout with it
-    // <AppealProvider>
+   
+    // TODO: Here should be our OutfitProvider
+    // <OutfitProvider>
     <Layout />
-    // </AppealProvider>
+    // </OutfitProvider>
   );
 };
 
