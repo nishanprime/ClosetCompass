@@ -9,11 +9,6 @@ import {
   DeleteDateColumn,
 } from "typeorm";
 
-enum PostPrivacy {
-  PUBLIC = 'public',
-  PRIVATE = 'private',
-  FRIENDS = 'friends',
-}
 
 @Entity({ name: "post_entity" })
 export default class PostEntity extends BaseEntity implements IPost {

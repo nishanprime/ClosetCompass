@@ -2,10 +2,9 @@ import { PostEntity, MediaEntity, LikesEntity, DislikesEntity } from "@entity";
 import {
   errorHandler,
   sendSuccess,
+  sendError,
 } from "@utils";
-import argon2 from "argon2";
 import { Request, Response } from "express";
-import UserEntity from "src/entity/user";
 import * as Yup from "yup";
 import path from "path";
 
@@ -60,6 +59,60 @@ export const addPost = async (req: Request, res: Response) => {
         ...post,
 
       },
+    });
+  } catch (error) {
+    console.log(error);
+    errorHandler(res, error);
+  }
+};
+export const addLike = async (req: Request, res: Response) => {
+  const { post_id } = req.body;
+  const schema = Yup.object().shape({
+    post_id: Yup.number().required(
+        "Requires outfit_id to post"
+    ),
+  });
+  try {
+    await schema.validate({ post_id });
+    const current_user = req.user;
+    const like = await LikesEntity.create({
+      user_id: current_user.id,
+      post_id,
+    }).save();
+    return sendSuccess({
+      res,
+      message: "Liked successfully",
+      data: {
+        ...like,
+
+      },
+    });
+
+  } catch (error) {
+    console.log(error);
+    errorHandler(res, error);
+  }
+};
+export const getLikesByPost = async (req: Request, res: Response) => {
+  const { post_id } = req.body;
+  try {
+    const likes = await LikesEntity.find({
+      where: {
+        post_id: parseInt(post_id) as number,
+      }
+    });
+    
+    if (!likes) {
+      return sendError({
+        res,
+        status: 404,
+        message: "Likes not found",
+      });
+    }
+    return sendSuccess({
+      res,
+      message: "Likes fetched successfully",
+      data: likes,
     });
   } catch (error) {
     console.log(error);
