@@ -1,4 +1,4 @@
-import IField from "./IFleid";
+import IField from "./IField";
 import IAppContext from "./IAppContext"
 import IUser from "./IUser";
 

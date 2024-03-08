@@ -53,7 +53,7 @@ const TextareaInput = ({
               }}
               bg="brand.grayBackground"
               isRequired={false}
-              rows={5}
+              rows={1}
             />
             <FormErrorMessage>{error?.message}</FormErrorMessage>
             {helpText !== "" && (

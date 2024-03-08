@@ -1,4 +1,4 @@
-import { Flex, Link } from "@chakra-ui/react";
+import { Flex, Link, Spacer } from "@chakra-ui/react";
 
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -49,24 +49,29 @@ const PortalHeader = () => {
         position="fixed"
         top="0"
         zIndex={100}
-        bg="white"
+        bg="brand.primaryBackground"
         shadow="base"
+        color="black"
+        paddingRight="5%"
+        paddingLeft="5%"
       >
-        <Flex w="fit-content"align="left" border="2px black solid">
-          <Link as={NavLink} to="/">
-            This is the PortalHeader component
-          </Link>
+        <Flex as="button" w="fit-content"align="left" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
+          Home
         </Flex>
-          <Flex border="2px black solid">
-            <button>Profile</button>
-          </Flex>
-          <Flex border="2px black solid">
-            <button>Outfits</button>
-          </Flex>
-          <Flex border="2px black solid">
-            <button>Wardrobe</button>
-          </Flex>
-          <UserMenu/>
+        <Spacer />
+        <Flex as="button" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
+          Profile
+        </Flex>
+        <Spacer />
+        <Flex as="button" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
+          Outfits
+        </Flex>
+        <Spacer />
+        <Flex as="button" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
+          Wardrobe
+        </Flex>
+        <Spacer />
+        <UserMenu/>
       </Flex>
     );
   }
