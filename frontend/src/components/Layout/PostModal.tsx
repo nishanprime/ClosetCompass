@@ -30,14 +30,13 @@ const PostModal = () => {
       });
     
       const onSubmit = async (values: any) => {
-        const { first_name, last_name, email, username, password } = values;
+        const { outfit_id, privacy, caption, images } = values;
     
         const response = await mutateAsync({
-          first_name,
-          last_name,
-          email: email.toLowerCase(),
-          username,
-          password,
+          outfit_id,
+          privacy,
+          caption,
+          images,
         });
     
         if (response) {
@@ -48,20 +47,13 @@ const PostModal = () => {
       <>
         <Button onClick={onOpen}>Make Post</Button>
   
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
+          <form onSubmit={handleSubmit(onSubmit)}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>New Post</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                <Flex
-                    w="full"
-                    h="full"
-                    bg="brand.primaryLightBackground"
-                    align="center"
-                    justify="center"
-                    px="4"
-                    >
                     <Flex
                         w="full"
                         maxW="container.sm"
@@ -75,12 +67,8 @@ const PostModal = () => {
                         <Heading fontSize={["xl", "xl", "2xl"]}>
                         Hi there! Ready to make a post?
                         </Heading>
-                        <Text color="brand.lightText" fontSize="sm">
-                        Let's get started!
-                        </Text>
 
                         <Divider />
-                        <form onSubmit={handleSubmit(onSubmit)}>
                         <Flex w="full" flexDirection="column" gap="3">
                             <Flex w="full" flexDirection={["column", "column", "row"]} gap="3">
                             <Field
@@ -114,34 +102,32 @@ const PostModal = () => {
                             label="Additional Images"
                             type="multiple-file"
                             />
-
-                            <Flex
-                            w="full"
-                            flexDirection="column"
-                            gap="5"
-                            fontSize={["sm", "sm", "md"]}
-                            >
-                            <Button
-                                w="full"
-                                colorScheme="brand.primaryScheme"
-                                type="submit"
-                                isDisabled={!isValid}
-                            >
-                                Post
-                            </Button>
-                            </Flex>
                         </Flex>
-                        </form>
-                    </Flex>
                     </Flex>
             </ModalBody>
   
             <ModalFooter>
+              <Flex
+                w="full"
+                flexDirection="row"
+                gap="5"
+                fontSize={["sm", "sm", "md"]}
+              >
+              <Button
+                  w="full"
+                  colorScheme="brand.primaryScheme"
+                  type="submit"
+                  isDisabled={!isValid}
+              >
+                  Post
+              </Button>
               <Button colorScheme='blue' mr={3} onClick={onClose}>
                 Close
               </Button>
+              </Flex>
             </ModalFooter>
           </ModalContent>
+          </form>
         </Modal>
       </>
     )
