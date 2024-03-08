@@ -9,7 +9,7 @@ import {
   DeleteDateColumn,
 } from "typeorm";
 
-@Entity({ name: "color_and_tags_entity" })
+@Entity({ name: "cloth_and_tags_entity" })
 export default class ClothAndTagEntity extends BaseEntity implements IClothAndTag {
   @PrimaryGeneratedColumn()
   id: number;
