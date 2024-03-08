@@ -384,4 +384,14 @@ export const getCommentsByPost = async (req: Request, res: Response) => {
 export default {
   getAllPosts,
   addPost,
+  deletePost,
+  addLike,
+  getLikesByPost,
+  unlike,
+  addDislike,
+  getDislikesByPost,
+  undislike,
+  addComment,
+  updateComment,
+  deleteComment,
 };
