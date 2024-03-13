@@ -20,17 +20,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
     "paths": {
-      "pages": ["pages/*"],
-      "components": ["components/*"],
-      "services": ["services/index.ts"],
-      "utils": ["utils/index.ts"],
-      "contexts": ["contexts/index.ts"],
-      "layouts": ["layouts/index.ts"],
-      "interfaces": ["interfaces/index.ts"],
-      "configs": ["configs/index.ts"],
-      "hooks": ["hooks/index.ts"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],

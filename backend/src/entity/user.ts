@@ -1,4 +1,4 @@
-import { IUser } from "@interfaces";
+import { IUser } from "@/interfaces";
 import argon2 from "argon2";
 import {
   BaseEntity,

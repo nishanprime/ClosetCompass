@@ -1,4 +1,4 @@
-import { ISpecialEvent } from "@interfaces";
+import { ISpecialEvent } from "@/interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,

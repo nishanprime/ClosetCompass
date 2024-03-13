@@ -4,9 +4,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import { AxiosError } from "axios";
 
-import Field from "components/Forms/Field";
-import { AuthService } from "services";
-import { handleError } from "utils";
+import Field from "@/components/Forms/Field";
+import { AuthService } from "@/services";
+import { handleError } from "@/utils";
 
 const Register = () => {
   const {

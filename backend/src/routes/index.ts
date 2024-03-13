@@ -1,10 +1,10 @@
 
 import { Router } from "express";
-import AuthRouter from "@routes/auth"
-import ClotheRouter from "@routes/cloth"
-import PostRouter from "@routes/post";
-import TagRouter from "@routes/tag";
-import FileRouter from "@routes/file"
+import AuthRouter from "@/routes/auth"
+import ClotheRouter from "@/routes/cloth"
+import PostRouter from "@/routes/post";
+import TagRouter from "@/routes/tag";
+import FileRouter from "@/routes/file"
 const baseRouter = () => {
   const router = Router();
 

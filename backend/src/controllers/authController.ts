@@ -5,7 +5,7 @@ import {
   sendError,
   sendSuccess,
   setCookie,
-} from "@utils";
+} from "@/utils";
 import argon2 from "argon2";
 import { Request, Response } from "express";
 import UserEntity from "src/entity/user";

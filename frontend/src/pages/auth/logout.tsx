@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { AuthService } from "services";
+import { AuthService } from "@/services";
 
 const Logout = () => {
   const onLogout = async () => {

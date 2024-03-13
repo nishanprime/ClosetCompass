@@ -1,6 +1,6 @@
-import {errorHandler, sendSuccess} from "@utils";
+import {errorHandler, sendSuccess} from "@/utils";
 import {Request, Response} from "express";
-import {TagEntity} from "@entity";
+import {TagEntity} from "@/entity";
 import {Timestamp} from "typeorm";
 
 export const getAllTags = async (req: Request, res: Response) => {

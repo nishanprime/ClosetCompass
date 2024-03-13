@@ -1,4 +1,4 @@
-import { Card, CardBody, Grid, Text } from "@chakra-ui/react";
+import { Card, Grid } from "@chakra-ui/react";
 
 const mock_outfits = [
   {

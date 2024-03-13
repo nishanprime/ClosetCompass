@@ -1,4 +1,4 @@
-import { MediaEntity } from "@entity";
+import { MediaEntity } from "@/entity";
 import fs from "fs";
 export const deleteMediaById = async (id: number) => {
   const media = await MediaEntity.findOne({

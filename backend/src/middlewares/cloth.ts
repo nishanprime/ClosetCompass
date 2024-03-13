@@ -1,4 +1,4 @@
-import { ClothEntity, OutfitAndClothEntity } from "@entity";
+import { ClothEntity, OutfitAndClothEntity } from "@/entity";
 import { NextFunction, Request, Response } from "express";
 import * as Yup from "yup";
 export const checkClothAssociation = async (

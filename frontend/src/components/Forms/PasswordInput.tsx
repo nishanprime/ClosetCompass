@@ -15,7 +15,7 @@ import { Controller } from "react-hook-form";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { RiLockPasswordLine } from "react-icons/ri";
 
-import { IField } from "interfaces/index";
+import { IField } from "@/interfaces/index";
 
 const PasswordInput = ({
   name,

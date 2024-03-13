@@ -17,15 +17,7 @@
     "outDir": "./build",
     "baseUrl": ".",
     "paths": {
-      "@entity": ["./src/entity/index.ts"],
-      "@interfaces": ["./src/interfaces/index.ts"],
-      "@middlewares/*": ["./src/middlewares/*"],
-      "@routes/*": ["./src/routes/*"],
-      "@controllers/*": ["./src/controllers/*"],
-      "@utils": ["./src/utils/index.ts"],
-      "@services": ["./src/services/index.ts"],
-      "@config": ["./src/bootstrap/config.ts"],
-      "@subscribers": ["./src/subscribers/index.ts"]
+      "@/*": ["./src/*"]
     }
   }
 }

@@ -1,8 +1,8 @@
 import express from "express";
-import { protect } from "@middlewares/auth";
-import { ClothController } from "@controllers/index";
-import dynamicUpload from "@middlewares/uploadMiddleware";
-import { checkClothAssociation } from "@middlewares/cloth";
+import { protect } from "@/middlewares/auth";
+import { ClothController } from "@/controllers/index";
+import dynamicUpload from "@/middlewares/uploadMiddleware";
+import { checkClothAssociation } from "@/middlewares/cloth";
 const ClothRouter = express.Router();
 
 // since we have protec middleware, only authenticated users can access these routes

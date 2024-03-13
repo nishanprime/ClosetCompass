@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { UploadCloud } from "lucide-react";
 import { ControllerRenderProps, FieldValues } from "react-hook-form";
-import { FileService } from "../../services/index";
+import { FileService } from "@/services/index";
 
 const FileInput = ({
   placeholder,

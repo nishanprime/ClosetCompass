@@ -1,10 +1,10 @@
 import { Flex } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
-import PortalHeader from "components/Layout/PortalHeader";
+import PortalHeader from "@/components/Layout/PortalHeader";
 //import Redirect from "components/Redirect";
 //import PortalSidebar from "components/Layout/PortalSidebar";
-import { useAppContext } from "contexts";
-import Redirect from "../components/Redirect";
+import { useAppContext } from "@/contexts";
+import Redirect from "@/components/Redirect";
 
 const Layout = () => {
   const { user } = useAppContext();

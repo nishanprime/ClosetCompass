@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 
-import { IColumnSort, IPagination } from "../interfaces";
+import { IColumnSort, IPagination } from "@/interfaces";
 
 export const useTable = () => {
   const [sort, setSort] = useState<IColumnSort | null>(null);

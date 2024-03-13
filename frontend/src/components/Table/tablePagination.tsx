@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { IPagination } from "interfaces";
+import { IPagination } from "@/interfaces";
 import { Button } from "@chakra-ui/react";
 
 const TablePagination = ({

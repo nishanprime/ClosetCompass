@@ -1,5 +1,5 @@
-import { MediaEntity } from "@entity";
-import { errorHandler, sendError, sendSuccess } from "@utils";
+import { MediaEntity } from "@/entity";
+import { errorHandler, sendError, sendSuccess } from "@/utils";
 import { Request, Response } from "express";
 import path from "path";
 import { deleteMediaById } from "src/utils/helpers";

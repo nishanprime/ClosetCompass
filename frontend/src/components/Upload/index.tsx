@@ -1,5 +1,5 @@
 import { FormControl, FormLabel } from "@chakra-ui/react";
-import { IInput } from "interfaces";
+import { IInput } from "@/interfaces";
 import { useController } from "react-hook-form";
 import PreviewFile from "./preview-file";
 import FileInput from "./file-input";
