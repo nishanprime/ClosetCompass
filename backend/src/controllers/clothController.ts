@@ -1,10 +1,10 @@
-import { ClothEntity, MediaEntity } from "@entity";
-import { errorHandler, sendError, sendSuccess } from "@utils";
+import { ClothEntity, MediaEntity } from "@/entity";
+import { errorHandler, sendError, sendSuccess } from "@/utils";
 import { Request, Response } from "express";
 import * as Yup from "yup";
 import path from "path";
 import fs from "fs";
-import { deleteMediaById } from "src/utils/helpers";
+import { deleteMediaById } from "@/utils/helpers";
 import { Brackets } from "typeorm";
 export const getClothById = async (req: Request, res: Response) => {
   const { id } = req.params;

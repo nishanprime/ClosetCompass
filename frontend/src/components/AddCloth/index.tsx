@@ -4,7 +4,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@chakra-ui/react";
 import { TextInput, NumberInput } from "../Forms";
 import FileUpload from "../Upload";
-import { error } from "console";
 
 export const addClothSchema = z.object({
   description: z.string({

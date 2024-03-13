@@ -1,9 +1,9 @@
-import { PostEntity, MediaEntity, LikesEntity, DislikesEntity, CommentEntity } from "@entity";
+import { PostEntity, MediaEntity, LikesEntity, DislikesEntity, CommentEntity } from "@/entity";
 import {
   errorHandler,
   sendSuccess,
   sendError,
-} from "@utils";
+} from "@/utils";
 import { deleteMediaById } from "src/utils/helpers";
 import { Request, Response } from "express";
 import * as Yup from "yup";

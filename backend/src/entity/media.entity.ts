@@ -1,4 +1,4 @@
-import { IMedia } from "@interfaces";
+import { IMedia } from "@/interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,

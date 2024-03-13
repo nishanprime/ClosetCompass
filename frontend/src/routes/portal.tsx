@@ -1,8 +1,8 @@
-import NotFound from "components/NotFound";
-import LandingPage from "pages/index";
-import MakeOutfitPage from "../pages/MakeOutfitPage.tsx";
-import ClothPages from "../pages/clothes/index.tsx";
-import OutfitPages from "../pages/outfits/index.tsx";
+import NotFound from "@/components/NotFound";
+import LandingPage from "@/pages/index";
+import MakeOutfitPage from "@/pages/MakeOutfitPage.tsx";
+import ClothPages from "@/pages/clothes/index.tsx";
+import OutfitPages from "@/pages/outfits/index.tsx";
 const authRoutes = [
   {
     path: "",

@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
-import Login from "pages/auth/login";
-import Register from "pages/auth/register";
+import Login from "@/pages/auth/login";
+import Register from "@/pages/auth/register";
 
 const authRoutes = [
   {

@@ -4,7 +4,6 @@ import { NavLink, useLocation } from "react-router-dom";
 
 import UserMenu from "./UserMenu";
 import { LucideIcon, Package2, PackagePlus, Shirt, User } from "lucide-react";
-import { useMemo } from "react";
 
 const Links: {
   ICON: LucideIcon;

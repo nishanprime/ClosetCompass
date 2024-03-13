@@ -1,8 +1,8 @@
 import { useMutation, useQuery } from "react-query";
-import AddClothForm from "../../components//AddCloth";
-import { ClothService } from "services";
-import { handleSuccess } from "utils";
-import { useTable } from "../../hook/useTable";
+import AddClothForm from "@/components//AddCloth";
+import { ClothService } from "@/services";
+import { handleSuccess } from "@/utils";
+import { useTable } from "@/hook/useTable";
 import { CustomTable } from "../../components/Table";
 import { createColumnHelper } from "@tanstack/react-table";
 import { Button, Skeleton } from "@chakra-ui/react";
@@ -40,7 +40,6 @@ const ClothPages = () => {
 
   const { mutateAsync, isLoading } = useMutation(ClothService.addCloth, {
     onSuccess: (data) => {
-      console.log(data, "data");
       handleSuccess("Cloth added successfully");
       refetch();
     },
