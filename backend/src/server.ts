@@ -1,8 +1,8 @@
 import express from "express";
 import connectDB from "./bootstrap/database";
-import { middlewaresConfig } from "@middlewares/index";
+import { middlewaresConfig } from "@/middlewares/index";
 
-import baseRouter from "@routes/index";
+import baseRouter from "@/routes/index";
 import IUser from "./interfaces/IUser";
 import path = require("path");
 //global variables
@@ -20,7 +20,7 @@ const getApp = async () => {
   await connectDB();
 
   const mediaPath = path.resolve(__dirname, "../uploads");
-  console.log(mediaPath);
+
   app.use("/uploads", express.static(mediaPath));
 
   app.use("/api", baseRouter());

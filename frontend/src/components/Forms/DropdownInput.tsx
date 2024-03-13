@@ -7,7 +7,7 @@ import {
 import Select, { StylesConfig, GroupBase } from "react-select";
 import { Controller } from "react-hook-form";
 
-import { IField } from "interfaces/index";
+import { IField } from "@/interfaces/index";
 
 interface IOption {
   label: string;

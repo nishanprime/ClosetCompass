@@ -1,9 +1,9 @@
 import { Flex, Spinner } from "@chakra-ui/react";
 import { Outlet } from "react-router-dom";
 
-import AuthHeader from "components/Layout/AuthHeader";
-import { useAppContext } from "contexts/AppProvider"
-import Redirect from "components/Redirect";
+import AuthHeader from "@/components/Layout/AuthHeader";
+import { useAppContext } from "@/contexts/AppProvider"
+import Redirect from "@/components/Redirect";
 
 const AuthLayout = () => {
   const { user, isLoading } = useAppContext();

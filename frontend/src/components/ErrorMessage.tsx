@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-import Alert from "components/Alert";
+import Alert from "@/components/Alert";
 
 const ErrorsMessage = () => {
   const [searchParams] = useSearchParams();

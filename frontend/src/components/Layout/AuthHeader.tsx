@@ -17,8 +17,7 @@ const AuthHeader = () => {
     >
       <Flex maxW="container.xl" w="full" justify="space-between" align="center">
         <Link as={NavLink} to="/">
-          <h1> Replace with logo image</h1>
-          {/* <Image src="/logo.svg" alt="logo" h={["40px", "40px", "60px"]} /> */}
+          <img src="/logo/svg/logo-no-background.svg" alt="logo" width="80px" />
         </Link>
       </Flex>
     </Flex>

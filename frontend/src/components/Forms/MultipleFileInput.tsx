@@ -15,8 +15,8 @@ import { MdUploadFile } from "react-icons/md";
 import { AiOutlineDelete } from "react-icons/ai";
 import { HiOutlineDocumentText } from "react-icons/hi";
 
-import { IField } from "interfaces/index";
-import { handleStringError } from "utils/helpers";
+import { IField } from "@/interfaces/index";
+import { handleStringError } from "@/utils/helpers";
 
 const MultipleFileInput = ({
   name,
