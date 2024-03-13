@@ -10,6 +10,7 @@ import MediaEntity from "./media.entity";
 import PostEntity from "./post.entity";
 import LikesEntity from "./likes.entity";
 import DislikesEntity from "./dislikes.entity";
+import CommentEntity from "./comment.entity";
 export default {
   UserEntity,
   ClothEntity,
@@ -23,6 +24,7 @@ export default {
   PostEntity,
   LikesEntity,
   DislikesEntity,
+  CommentEntity,
 };
 
 export {
@@ -38,4 +40,5 @@ export {
   PostEntity,
   LikesEntity,
   DislikesEntity,
+  CommentEntity,
 };

@@ -1,4 +1,4 @@
-import { IPost } from "@interfaces";
+import { IComment } from "@interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -10,25 +10,19 @@ import {
 } from "typeorm";
 
 
-@Entity({ name: "post_entity" })
-export default class PostEntity extends BaseEntity implements IPost {
+@Entity({ name: "comment_entity" })
+export default class CommentEntity extends BaseEntity implements IComment {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ nullable: false })
   user_id: number;
 
-  @Column({ nullable: true })
-  media_id: number; 
-
-  @Column({ nullable: true })
+  @Column({ nullable: false })
   text: string;
 
   @Column({ nullable: false })
-  outfit_id: number;
-
-  @Column()
-  privacy: string;
+  post_id: number;
 
   // default columns
   @CreateDateColumn()
