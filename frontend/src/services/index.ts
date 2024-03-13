@@ -5,4 +5,5 @@ import AuthService from "./AuthService";
 import FileService from "./FileService";
 import ClothService from "./ClothService";
 import PostService from "./PostService";
-export { AuthService, FileService, ClothService, PostService };
+import OutfitService from "./OutfitService";
+export { AuthService, FileService, ClothService, PostService, OutfitService };
