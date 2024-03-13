@@ -35,7 +35,7 @@ const Register = () => {
     });
 
     if (response) {
-      return navigate(`/auth/login`);
+      return navigate(`/`);
     }
   };
 
@@ -129,7 +129,6 @@ const Register = () => {
                 colorScheme="brand.primaryScheme"
                 isLoading={isLoading}
                 type="submit"
-                isDisabled={!isValid}
               >
                 Create Account
               </Button>
