@@ -1,7 +1,7 @@
 import { Flex, Link, Spacer } from "@chakra-ui/react";
 
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 import UserMenu from "./UserMenu";
 import { useAppContext } from "contexts";
@@ -56,19 +56,27 @@ const PortalHeader = () => {
         paddingLeft="5%"
       >
         <Flex as="button" w="fit-content"align="left" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
-          Home
+          <Link as={ReactRouterLink} to="/">
+            Home
+          </Link>
         </Flex>
         <Spacer />
         <Flex as="button" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
-          Profile
+          <Link as={ReactRouterLink} to="/">
+            Profile
+          </Link>
         </Flex>
         <Spacer />
         <Flex as="button" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
-          Outfits
+          <Link as={ReactRouterLink} to="/">
+            Outfits
+          </Link>
         </Flex>
         <Spacer />
         <Flex as="button" border="2px black solid" bg="brand.primaryLightBackground" padding="5px" borderRadius="lg">
-          Wardrobe
+          <Link as={ReactRouterLink} to="/">
+            Wardrobe
+          </Link>
         </Flex>
         <Spacer />
         <UserMenu/>
