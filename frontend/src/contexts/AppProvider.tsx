@@ -1,9 +1,9 @@
 import { createContext, useContext, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 
-import { IAppContext, IUser } from "interfaces";
-import { AuthService } from "services";
-import Loader from "components/Loader";
+import { IAppContext, IUser } from "@/interfaces";
+import { AuthService } from "@/services";
+import Loader from "@/components/Loader";
 
 export const AppContext = createContext({} as IAppContext);
 

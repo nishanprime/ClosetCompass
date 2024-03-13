@@ -1,4 +1,4 @@
-import { IOutfitCalender } from "@interfaces";
+import { IOutfitCalender } from "@/interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,

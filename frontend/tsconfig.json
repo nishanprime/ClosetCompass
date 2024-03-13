@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "target": "ES2020",
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
-  
 
     /* Bundler mode */
     "moduleResolution": "Node",
@@ -20,17 +20,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "baseUrl": "./src",
     "paths": {
-      "pages": ["pages/*"],
-      "components": ["components/*"],
-      "services": ["services/index.ts"],
-      "utils": ["utils/index.ts"],
-      "contexts": ["contexts/index.ts"],
-      "layouts": ["layouts/index.ts"],
-      "interfaces": ["interfaces/index.ts"],
-      "configs": ["configs/index.ts"],
-      "hooks": ["hooks/index.ts"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src"],

@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { Controller } from "react-hook-form";
 
-import { IField } from "interfaces/index";
+import { IField } from "@/interfaces/index";
 
 const NumberInput = ({
   name,

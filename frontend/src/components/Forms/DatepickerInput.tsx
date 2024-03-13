@@ -9,7 +9,7 @@ import { Controller } from "react-hook-form";
 import DatePicker from "react-date-picker";
 import { BsArrowRightShort, BsArrowLeftShort } from "react-icons/bs";
 
-import { IField } from "interfaces/index";
+import { IField } from "@/interfaces/index";
 import "react-date-picker/dist/DatePicker.css";
 import "react-calendar/dist/Calendar.css";
 

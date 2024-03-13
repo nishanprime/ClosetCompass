@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 
-import { UserEntity } from "@entity";
-import { sendError, getToken } from "@utils";
+import { UserEntity } from "@/entity";
+import { sendError, getToken } from "@/utils";
 
 export const protect = async (
   req: Request,

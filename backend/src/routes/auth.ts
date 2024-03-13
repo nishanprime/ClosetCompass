@@ -1,6 +1,6 @@
 import express from "express";
-import { AuthController } from "@controllers/index";
-import { protect } from "@middlewares/auth";
+import { AuthController } from "@/controllers/index";
+import { protect } from "@/middlewares/auth";
 const AuthRouter = express.Router();
 
 AuthRouter.route("/login").post(AuthController.loginController);

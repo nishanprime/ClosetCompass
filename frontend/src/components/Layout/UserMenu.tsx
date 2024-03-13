@@ -1,15 +1,16 @@
 import {
-    Avatar,
-    Divider,
-    Flex, Menu,
-    MenuButton,
-    MenuItem,
-    MenuList,
-    Text
+  Avatar,
+  Divider,
+  Flex,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Text,
 } from "@chakra-ui/react";
 
-import { useAppContext } from "contexts";
-import { AuthService } from "services";
+import { useAppContext } from "@/contexts";
+import { AuthService } from "@/services";
 
 const UserMenu = () => {
   const { user } = useAppContext();
