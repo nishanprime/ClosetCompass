@@ -1,4 +1,4 @@
-import { IDislikes } from "@interfaces";
+import { IDislikes } from "@/interfaces";
 import {
   Entity,
   PrimaryColumn,

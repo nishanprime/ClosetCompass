@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { Controller } from "react-hook-form";
 
-import { IField } from "interfaces";
+import { IField } from "@/interfaces";
 
 const CheckboxGroupInput = ({
   name,

@@ -1,4 +1,4 @@
-import { IClothAndTag } from "@interfaces";
+import { IClothAndTag } from "@/interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,

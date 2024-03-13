@@ -18,6 +18,7 @@ import ITag from "./ITag";
 import IPost from "./IPost";
 import ILikes from "./ILikes";
 import IDislikes from "./IDislikes";
+import IComment from "./IComment";
 export {
   IBase,
   IUser,
@@ -39,4 +40,5 @@ export {
   IPost,
   ILikes,
   IDislikes,
+  IComment,
 };

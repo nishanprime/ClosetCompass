@@ -1,3 +1,4 @@
+import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 //routes import
@@ -5,10 +6,10 @@ import portalRoutes from "./portal";
 import authRoutes from "./auth";
 
 //layouts import
-import { PortalLayout, AuthLayout } from "layouts";
-import NotFound from "components/NotFound";
-import Logout from "pages/auth/logout";
-import MakeOutfitPage from "../pages/makeOutfit/MakeOutfitPage.tsx";
+import { PortalLayout, AuthLayout } from "../layouts";
+import NotFound from "@/components/NotFound";
+import Logout from "@/pages/auth/logout";
+import MakeOutfitPage from "@/pages/makeOutfit/MakeOutfitPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,12 @@ const router = createBrowserRouter([
     path: "logout",
     element: <Logout/>,
   },
+  {
+    path: "/makeOutfit",
+    element: <MakeOutfitPage />,
+    children: portalRoutes,
+  },
+
   {
     path: "*",
     element: <NotFound />,

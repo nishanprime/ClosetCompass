@@ -11,7 +11,7 @@ import {
 import { Controller } from "react-hook-form";
 import { HiOutlineMail } from "react-icons/hi";
 
-import { IField } from "interfaces/index";
+import { IField } from "@/interfaces/index";
 
 const EmailInput = ({
   name,

@@ -1,4 +1,4 @@
-import { IOutfit } from "@interfaces";
+import { IOutfit } from "@/interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,

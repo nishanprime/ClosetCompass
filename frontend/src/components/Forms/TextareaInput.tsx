@@ -7,7 +7,7 @@ import {
 } from "@chakra-ui/react";
 import { Controller } from "react-hook-form";
 
-import { IField } from "interfaces/index";
+import { IField } from "../../interfaces/index";
 
 const TextareaInput = ({
   name,
@@ -53,7 +53,7 @@ const TextareaInput = ({
               }}
               bg="brand.grayBackground"
               isRequired={false}
-              rows={5}
+              rows={1}
             />
             <FormErrorMessage>{error?.message}</FormErrorMessage>
             {helpText !== "" && (

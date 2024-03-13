@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import { AxiosError } from "axios";
 
-import Field from "components/Forms/Field";
-import { AuthService } from "services";
-import { handleError, handleSuccess } from "utils";
-import ErrorsMessage from "components/ErrorMessage";
+import Field from "@/components/Forms/Field";
+import { AuthService } from "@/services";
+import { handleError, handleSuccess } from "@/utils";
+import ErrorsMessage from "@/components/ErrorMessage";
 
 const Login = () => {
   const { control, handleSubmit } = useForm();

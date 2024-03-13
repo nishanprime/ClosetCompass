@@ -1,4 +1,4 @@
-import { IField } from "interfaces";
+import { IField } from "@/interfaces"
 import {
   EmailInput,
   TextInput,

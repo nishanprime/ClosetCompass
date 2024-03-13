@@ -1,10 +1,11 @@
 
 import { Router } from "express";
-import AuthRouter from "@routes/auth"
-import ClotheRouter from "@routes/cloth"
+import AuthRouter from "@/routes/auth"
+import ClotheRouter from "@/routes/cloth"
 import ClothAndTagsRouter from "@routes/clothAndTags";
-import PostRouter from "@routes/post";
-import TagRouter from "@routes/tag";
+import PostRouter from "@/routes/post";
+import TagRouter from "@/routes/tag";
+import FileRouter from "@/routes/file"
 const baseRouter = () => {
   const router = Router();
 
@@ -13,6 +14,7 @@ const baseRouter = () => {
   router.use("/clothAndTags",ClothAndTagsRouter);
   router.use("/posts",PostRouter)
   router.use("/tag",TagRouter);
+  router.use("/files", FileRouter)
   router.use("*", (req, res) => {
     res.status(404).json({
       status: "error",

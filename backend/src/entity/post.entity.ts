@@ -1,4 +1,4 @@
-import { IPost } from "@interfaces";
+import { IPost } from "@/interfaces";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,12 +9,6 @@ import {
   DeleteDateColumn,
 } from "typeorm";
 
-enum PostPrivacy {
-  PUBLIC = 'public',
-  PRIVATE = 'private',
-  FRIENDS = 'friends',
-}
-
 @Entity({ name: "post_entity" })
 export default class PostEntity extends BaseEntity implements IPost {
   @PrimaryGeneratedColumn()
@@ -24,7 +18,7 @@ export default class PostEntity extends BaseEntity implements IPost {
   user_id: number;
 
   @Column({ nullable: true })
-  media_id: number; 
+  media_id: number;
 
   @Column({ nullable: true })
   text: string;
