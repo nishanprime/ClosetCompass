@@ -1,6 +1,6 @@
 import express from "express";
-import {protect} from "@middlewares/auth";
-import ClothAndTagsController from "@controllers/clothAndTagsController";
+import {protect} from "@/middlewares/auth";
+import ClothAndTagsController from "@/controllers/clothAndTagsController";
 
 const ClothAndTagsRouter = express.Router();
 

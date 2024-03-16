@@ -1,7 +1,7 @@
 import {Request, Response} from "express";
 import * as Yup from "yup";
-import {ClothAndTagEntity} from "@entity";
-import {errorHandler, sendError, sendSuccess} from "@utils";
+import {ClothAndTagEntity} from "@/entity";
+import {errorHandler, sendError, sendSuccess} from "@/utils";
 
 export const getClothesByTagId = async (req: Request, res: Response) => {
     const {id} = req.params;

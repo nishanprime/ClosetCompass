@@ -18,6 +18,8 @@ const MakeOutfitPage = () => {
     const [outfitItems, setOutfitItems] = useState<OutfitItem[]>([]);
     const [tags, setTags] = useState<ITag[]>([]);
 
+    console.log(API_URL);
+
     useEffect(() => {
         (async () => await load())();
     }, []);
