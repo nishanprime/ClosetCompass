@@ -2,9 +2,9 @@ import {useEffect, useState} from "react";
 import {Box, Button, Center, IconButton, Stack} from '@chakra-ui/react';
 import {AddIcon} from '@chakra-ui/icons';
 import axios from "axios";
-import ICloth from "../../interfaces/ICloth.ts";
-import ITag from "../../interfaces/ITag.ts";
-import ClothCard from "./Components/ClothCard.tsx";
+import ICloth from "@/interfaces/ICloth.ts";
+import ITag from "@/interfaces/ITag.ts";
+import ClothCard from "@/Components/ClothCard.tsx";
 
 const API_URL = import.meta.env.VITE_API_URI;
 
