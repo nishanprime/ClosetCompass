@@ -6,6 +6,7 @@ const addCloth = async (formData: {
   description: string;
   no_of_wears: number;
   cloth_id: string;
+  tags: [string];
 }) => {
   const { data } = await axios.post(`${API_URL}/add`, formData);
   return data?.data;

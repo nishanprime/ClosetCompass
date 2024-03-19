@@ -1,9 +1,14 @@
 import { z } from "zod";
+import axios from "axios";
+import { useState, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@chakra-ui/react";
-import { TextInput, NumberInput } from "../Forms";
+import { TextInput, NumberInput, CheckboxGroupInput } from "../Forms";
 import FileUpload from "../Upload";
+import ITag from "@/interfaces/ITag";
+
+const API_URL = import.meta.env.VITE_API_URI;
 
 export const addClothSchema = z.object({
   description: z.string({
@@ -22,15 +27,34 @@ export const addClothSchema = z.object({
       required_error: "Please upload a picture",
     }
   ),
+  tags: z.array(z.number({
+    description: "Tags are required",
+  })),
 });
 
 const AddClothForm = ({
   onSubmit,
   isLoading,
 }: {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: any) => any;
   isLoading: boolean;
 }) => {
+
+  const [tags, setTags] = useState<ITag[]>([]);
+
+
+  useEffect(() => {
+      (async () => await load())();
+  }, []);
+
+  async function load() {
+      try {
+          const response = await axios.get(`${API_URL}/tag/all`);
+          setTags(response.data.data);
+      } catch (error) {
+          console.log(error);
+      }
+  }
   type clothFormValues = z.infer<typeof addClothSchema>;
 
   const ClothForm = useForm<clothFormValues>({
@@ -81,6 +105,12 @@ const AddClothForm = ({
           <p className=" text-red-400 text-sm">
             {ClothForm.formState.errors?.picture?.message}
           </p>
+          <CheckboxGroupInput
+            name="tags"
+            label="Add Tags"
+            control={ClothForm.control as any}
+            options={tags.map((tag) => ({value: tag.id.toString(), label: tag.tag_name}))}
+          />
         </div>
         <Button isLoading={isLoading} type="submit">
           Submit

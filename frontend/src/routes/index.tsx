@@ -18,11 +18,6 @@ const router = createBrowserRouter([
     children: portalRoutes,
   },
   {
-    path: "/makeOutfit",
-    element: <MakeOutfitPage/>,
-    children: portalRoutes,
-  },
-  {
     path: "/auth",
     element: <AuthLayout />,
     children: authRoutes,
@@ -30,11 +25,6 @@ const router = createBrowserRouter([
   {
     path: "logout",
     element: <Logout/>,
-  },
-  {
-    path: "/makeOutfit",
-    element: <MakeOutfitPage />,
-    children: portalRoutes,
   },
 
   {
