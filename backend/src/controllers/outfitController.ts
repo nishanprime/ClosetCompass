@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 import * as Yup from "yup";
-import {OutfitEntity} from "@/entity";
+import {OutfitAndClothEntity, OutfitEntity} from "@/entity";
 import {errorHandler, sendError, sendSuccess} from "@/utils";
 import {Brackets} from "typeorm";
 
@@ -96,11 +96,12 @@ export const getAllOutfits = async (req: Request, res: Response) => {
 }
 
 export const addOutfit = async (req: Request, res: Response) => {
-    const {name, description} = req.body;
+    const {name, description, clothes} = req.body;
     const schema = Yup.object().shape({
         outfitId: Yup.string().optional(),
         name: Yup.string().required("Please enter the name of the outfit"),
         description: Yup.string().required("Please enter the description of the outfit"),
+        clothes: Yup.array().of(Yup.number()).min(1),
     });
 
     try {
@@ -112,6 +113,16 @@ export const addOutfit = async (req: Request, res: Response) => {
             name,
             description,
         }).save();
+
+        for (let i = 0; i < clothes.length; i++) {
+            let clothId = clothes[i];
+            await OutfitAndClothEntity.create({
+                outfit_id: outfit.id,
+                cloth_id: clothId,
+                location_id: i,
+            }).save();
+        }
+
         return sendSuccess({
             res,
             message: "Outfit added successfully",
@@ -172,29 +183,29 @@ export const deleteOutfit = async (req: Request, res: Response) => {
     await schema.validate({id});
 
     try {
-       const outfit = await OutfitEntity.findOne({
-          where: {
-              id: parseInt(id) as number,
-          }
-       });
+        const outfit = await OutfitEntity.findOne({
+            where: {
+                id: parseInt(id) as number,
+            }
+        });
 
-       if (!outfit) {
-           return sendError({
-               res,
-               status: 404,
-               message: "Outfit not found",
-           });
-       }
+        if (!outfit) {
+            return sendError({
+                res,
+                status: 404,
+                message: "Outfit not found",
+            });
+        }
 
-       await OutfitEntity.delete({
-           id: parseInt(id) as number,
-       });
+        await OutfitEntity.delete({
+            id: parseInt(id) as number,
+        });
 
-       return sendSuccess({
-           res,
-           message: "Outfit deleted successfully",
-           data: {},
-       });
+        return sendSuccess({
+            res,
+            message: "Outfit deleted successfully",
+            data: {},
+        });
     } catch (error) {
         console.log(error);
         errorHandler(res, error);
