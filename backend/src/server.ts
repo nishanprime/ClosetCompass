@@ -22,6 +22,14 @@ const getApp = async () => {
   const mediaPath = path.resolve(__dirname, "../uploads");
 
   app.use("/uploads", express.static(mediaPath));
+  // const staticPath = path.resolve(__dirname, "../../../frontend/dist");
+  // app.use(express.static(staticPath));
+  // app.get("*", (req, res, next) => {
+  //   if (!req.path.startsWith("/api")) {
+  //     return res.sendFile(path.join(staticPath, "index.html"));
+  //   }
+  //   next();
+  // });
 
   app.use("/api", baseRouter());
 
