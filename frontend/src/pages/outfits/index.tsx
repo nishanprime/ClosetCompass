@@ -1,23 +1,20 @@
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { OutfitService } from "@/services";
-import { handleSuccess } from "@/utils";
 import { useTable } from "@/hook/useTable";
 import { CustomTable } from "@/components/Table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Button, Flex, Skeleton } from "@chakra-ui/react";
+import { Button,  Skeleton } from "@chakra-ui/react";
 import TablePagination from "@/components/Table/tablePagination";
 import SearchToolbar from "@/components/Table/searchbar";
 
 const OutfitPages = () => {
   const {
     sort,
-    setSort,
     pagination,
     setPagination,
     search,
     setSearch,
     total,
-    setTotal,
   } = useTable();
 
   const {
