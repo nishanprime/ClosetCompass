@@ -139,6 +139,7 @@ export const addCloth = async (req: Request, res: Response) => {
       wears_remaining: no_of_wears,
       media_id: media.id,
     }).save();
+    
     return sendSuccess({
       res,
       message: "Cloth added successfully",
