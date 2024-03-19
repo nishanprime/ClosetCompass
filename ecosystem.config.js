@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: "backend",
+      name: "backend_closetcompass",
       script: "npm",
       args: "run start",
       cwd: "./backend/",

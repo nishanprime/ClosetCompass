@@ -43,7 +43,7 @@ function startApp() {
     return __awaiter(this, void 0, void 0, function* () {
         const app = yield (0, server_1.default)();
         app.listen(port, () => {
-            console.log(`API SERVER RUNNING ON PORT: ${port} and worker id at ${process.pid}`);
+            console.log(`API SERVER RUNNING ON PORT: ${port} and worker id at ${process.pid} | ClosetCompass API Server`);
         });
     });
 }

@@ -16,7 +16,7 @@ const baseRouter = () => {
   router.use("*", (req, res) => {
     res.status(404).json({
       status: "error",
-      message: "Not Found",
+      message: "Not Found | ClosetCompass API",
     });
   });
 

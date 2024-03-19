@@ -10,7 +10,7 @@ async function startApp() {
 
   app.listen(port, () => {
     console.log(
-      `API SERVER RUNNING ON PORT: ${port} and worker id at ${process.pid}`
+      `API SERVER RUNNING ON PORT: ${port} and worker id at ${process.pid} | ClosetCompass API Server`
     );
   });
 }
