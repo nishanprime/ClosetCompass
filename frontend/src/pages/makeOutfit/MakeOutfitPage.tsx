@@ -1,11 +1,12 @@
 import {useState} from "react";
-import {Button, Center, Stack} from '@chakra-ui/react';
+import {Button, Center, SimpleGrid, Stack} from '@chakra-ui/react';
 import axios from "axios";
 import OutfitCreator from "@/pages/makeOutfit/Components/OutfitCreator.tsx";
 import {z} from "zod";
 import {FormProvider, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import TextInput from "@/components/Forms/TextInput.tsx";
+import {ClothSidebar} from "@/pages/makeOutfit/Components/ClothSidebar.tsx";
 
 const API_URL = import.meta.env.VITE_API_URI;
 
@@ -28,7 +29,7 @@ const MakeOutfitPage = () => {
         defaultValues: {},
     });
 
-    async function createOutfit(data: {name: string, description: string}) {
+    async function createOutfit(data: { name: string, description: string }) {
         const outfit = {
             name: data.name,
             description: data.description,
@@ -62,36 +63,37 @@ const MakeOutfitPage = () => {
 
     return (
         <>
-            <Center>
-                <FormProvider {...OutfitForm}>
-                    <form onSubmit={OutfitForm.handleSubmit(createOutfit, showError)}>
-                        <Stack spacing={4}>
-                            <TextInput
-                                required
-                                name={'name'}
-                                control={OutfitForm.control as any}
-                                label={'Name'}
-                                placeholder={'Enter outfit name...'}
-                            />
-                            <TextInput
-                                required
-                                name={'description'}
-                                control={OutfitForm.control as any}
-                                label={'Description'}
-                                placeholder={'Enter outfit description...'}
-                            />
-                            <OutfitCreator onOutfitChanged={(outfitItems) => {
-                                setOutfitItems(outfitItems);
-                            }}/>
-                            <Button
-                                type="submit"
-                                isDisabled={!isValidOutfit(outfitItems)}>
-                                Finish Outfit
-                            </Button>
-                        </Stack>
-                    </form>
-                </FormProvider>
-            </Center>
+                <Center>
+                    <FormProvider {...OutfitForm}>
+                        <form onSubmit={OutfitForm.handleSubmit(createOutfit, showError)}>
+                            <Stack spacing={4}>
+                                <TextInput
+                                    required
+                                    name={'name'}
+                                    control={OutfitForm.control as any}
+                                    label={'Name'}
+                                    placeholder={'Enter outfit name...'}
+                                />
+                                <TextInput
+                                    required
+                                    name={'description'}
+                                    control={OutfitForm.control as any}
+                                    label={'Description'}
+                                    placeholder={'Enter outfit description...'}
+                                />
+                                <OutfitCreator onOutfitChanged={(outfitItems) => {
+                                    setOutfitItems(outfitItems);
+                                }}/>
+                                <Button
+                                    type="submit"
+                                    isDisabled={!isValidOutfit(outfitItems)}>
+                                    Finish Outfit
+                                </Button>
+                            </Stack>
+                        </form>
+                    </FormProvider>
+                </Center>
+                {/*<ClothSidebar/>*/}
         </>
     );
 }
