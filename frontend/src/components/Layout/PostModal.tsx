@@ -29,7 +29,7 @@ const PostModal = () => {
     formState: { isValid },
   } = useForm();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutateAsync, isLoading } = useMutation(PostService.post, {
+  const { mutateAsync } = useMutation(PostService.post, {
     onError: (error) => {
       handleError(error as AxiosError);
     },
