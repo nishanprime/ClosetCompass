@@ -23,35 +23,21 @@ export const getAllPosts = async (req: Request, res: Response) => {
   }
 };
 export const addPost = async (req: Request, res: Response) => {
-  const { text, privacy, outfit_id } = req.body;
+  const { caption, outfit_id, media_id } = req.body;
 
   const schema = Yup.object().shape({
     outfit_id: Yup.number().required(
         "Requires outfit_id to post"
     ),
-    privacy: Yup.string().required(
-        "Provide privacy setting"
-    ),
   });
   try {
-    await schema.validate({ privacy, outfit_id });
+    await schema.validate({ outfit_id });
     const current_user = req.user;
-    let media;
-    // make sure to add host to the file path and url encode the file path
-    if (req.file) {
-      const file = req.file;
-      const relativePath = path.relative(".", req.file.path);
-      media = await MediaEntity.create({
-        relative_path: relativePath,
-        media_type: file.mimetype.split("/")[1],
-      }).save();
-    }
     const post = await PostEntity.create({
       user_id: current_user.id,
-      media_id: (media ? media.id : null),
-      text,
+      media_id: media_id,
+      text: caption,
       outfit_id,
-      privacy,
     }).save();
     return sendSuccess({
       res,

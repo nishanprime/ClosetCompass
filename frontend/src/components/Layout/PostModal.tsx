@@ -1,3 +1,4 @@
+import { z } from "zod";
 import {
   Modal,
   ModalOverlay,
@@ -7,7 +8,7 @@ import {
   ModalBody,
   ModalFooter,
 } from "@chakra-ui/modal";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import {
   Button,
   useDisclosure,
@@ -15,12 +16,32 @@ import {
   Flex,
   Heading,
 } from "@chakra-ui/react";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { AxiosError } from "axios";
 import Field from "../Forms/Field";
-import { PostService } from "@/services";
+import FileUpload from "../Upload";
+import { OutfitService, PostService } from "@/services";
 import { handleError } from "@/utils";
-const outfits = ["first"];
+import { zodResolver } from "@hookform/resolvers/zod";
+
+export const addPostSchema = z.object({
+  outfit: z.string({
+    description: "Outfit id needed to make post",
+  }),
+  caption: z.string({
+    description: "Caption optional to make post",
+  }),
+  picture: z.object(
+    {
+      name: z.string(),
+      src: z.string(),
+      id: z.any(),
+    },
+    {
+      required_error: "Please upload a picture",
+    }
+  ),
+});
 
 const PostModal = () => {
   const {
@@ -29,32 +50,66 @@ const PostModal = () => {
     formState: { isValid },
   } = useForm();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutateAsync, isLoading } = useMutation(PostService.post, {
+  const { mutateAsync } = useMutation(PostService.post, {
     onError: (error) => {
       handleError(error as AxiosError);
     },
   });
 
   const onSubmit = async (values: any) => {
-    const { outfit_id, privacy, caption, images } = values;
+    const { outfit_id, caption, media_id } = values;
 
     const response = await mutateAsync({
       outfit_id,
-      privacy,
       caption,
-      images,
+      media_id,
     });
 
     if (response) {
       return onClose();
     }
   };
+  type postFormValues = z.infer<typeof addPostSchema>;
+
+  const PostForm = useForm<postFormValues>({
+    resolver: zodResolver(addPostSchema),
+    defaultValues: {},
+  });
+
+  const {
+    data: allOutfits,
+    isLoading: outfitLoading,
+  } = useQuery("all-outfits", async () => {
+    const outfits = await OutfitService.getAllOutfits({
+      search: "",
+      sort_order: "DESC",
+      page: 0,
+      page_size: 100,
+      sort_by: "",
+    });
+    return outfits;
+  });
+  console.log(allOutfits);
   return (
     <>
       <Button onClick={onOpen}>Make Post</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <FormProvider {...PostForm}>
+        <form onSubmit={PostForm.handleSubmit(
+          (data) => {
+            onSubmit({
+              outfit_id: data.outfit,
+              caption: data.caption,
+              media_id: data.picture.id,
+            });
+            // empty the form
+            PostForm.reset();
+          },
+          (error) => {
+            console.log("printing error", error);
+          }
+        )}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>New Post</ModalHeader>
@@ -76,29 +131,15 @@ const PostModal = () => {
 
                 <Divider />
                 <Flex w="full" flexDirection="column" gap="3">
-                  <Flex
-                    w="full"
-                    flexDirection={["column", "column", "row"]}
-                    gap="3"
-                  >
                     <Field
                       control={control}
                       name="outfit"
                       label="Outfit"
                       type="dropdown"
                       placeholder="Outfit of choice"
-                      options={outfits}
+                      options={allOutfits?.outfits?.map((outfit: any) => outfit.name) || []}
                       required
                     />
-                    <Field
-                      control={control}
-                      name="privacy"
-                      label="Privacy"
-                      type="dropdown"
-                      placeholder="Who should see this"
-                      required
-                    />
-                  </Flex>
                   <Field
                     control={control}
                     name="caption"
@@ -106,12 +147,15 @@ const PostModal = () => {
                     type="textarea"
                     placeholder="Tell us about this outfit"
                   />
-                  <Field
-                    control={control}
-                    name="images"
-                    label="Additional Images"
-                    type="multiple-file"
+                  <FileUpload
+                    control={PostForm.control}
+                    label="Add Picture"
+                    name={`picture`}
+                    required
                   />
+                  <p className=" text-red-400 text-sm">
+                    {PostForm.formState.errors?.picture?.message}
+                  </p>
                 </Flex>
               </Flex>
             </ModalBody>
@@ -138,6 +182,7 @@ const PostModal = () => {
             </ModalFooter>
           </ModalContent>
         </form>
+        </FormProvider>
       </Modal>
     </>
   );

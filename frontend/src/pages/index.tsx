@@ -4,6 +4,7 @@ import {TextareaInput} from "../components/Forms";
 import { Flex } from "@chakra-ui/layout";
 import { ISpecialEvent } from "../interfaces/index";
 import { Table, TableContainer, Tbody, Thead, Tr, Th, Td } from "@chakra-ui/react";
+import PostModal from "@/components/Layout/PostModal";
 
 
 const LandingPage = () => {
@@ -29,8 +30,8 @@ const LandingPage = () => {
       <div>
         <div style={{position: "absolute", top: "0px", right: "0px", height: "700px", width: "49%", border: "solid black 2px"}}>
           <div style={{position: "relative", left: "10%"}}>
-            <Flex as="button" borderRadius="lg" style={{float: "left", border: "black solid 2px", position: "relative", top: "15px", right: "50px", padding: "5px"}}>
-              Make Post
+            <Flex borderRadius="lg" style={{float: "left", border: "black solid 2px", position: "relative", top: "15px", right: "50px", padding: "5px"}}>
+              <PostModal/>
             </Flex>
             <div style={{float: "left", position: "relative", top: "10px", width: "60%"}}>
               <TextareaInput
