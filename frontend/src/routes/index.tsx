@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 
 //routes import
@@ -9,7 +8,6 @@ import authRoutes from "./auth";
 import { PortalLayout, AuthLayout } from "../layouts";
 import NotFound from "@/components/NotFound";
 import Logout from "@/pages/auth/logout";
-import MakeOutfitPage from "@/pages/makeOutfit/MakeOutfitPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -18,23 +16,13 @@ const router = createBrowserRouter([
     children: portalRoutes,
   },
   {
-    path: "/makeOutfit",
-    element: <MakeOutfitPage/>,
-    children: portalRoutes,
-  },
-  {
     path: "/auth",
     element: <AuthLayout />,
     children: authRoutes,
   },
   {
-    path: "logout",
+    path: "/logout",
     element: <Logout/>,
-  },
-  {
-    path: "/makeOutfit",
-    element: <MakeOutfitPage />,
-    children: portalRoutes,
   },
 
   {
