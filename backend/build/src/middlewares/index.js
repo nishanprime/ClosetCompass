@@ -12,7 +12,7 @@ const middlewaresConfig = (app) => {
     app.use(express_1.default.json({ limit: "10mb" }));
     app.use(express_1.default.urlencoded({ extended: true, limit: "10mb" }));
     app.use((0, cors_1.default)({
-        origin: true,
+        origin: 'https://closetcompass.nishanthapa.com',
         credentials: true,
     }));
 };
