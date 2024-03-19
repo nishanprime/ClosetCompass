@@ -1,87 +1,96 @@
-import {useEffect, useState} from "react";
-import {Box, Button, Center, IconButton, Stack} from '@chakra-ui/react';
-import {AddIcon} from '@chakra-ui/icons';
+import {useState} from "react";
+import {Button, Center, Stack} from '@chakra-ui/react';
 import axios from "axios";
-import ICloth from "@/interfaces/ICloth.ts";
-import ITag from "@/interfaces/ITag.ts";
-import ClothCard from "@/Components/ClothCard.tsx";
+import OutfitCreator from "@/pages/makeOutfit/Components/OutfitCreator.tsx";
+import {z} from "zod";
+import {FormProvider, useForm} from "react-hook-form";
+import {zodResolver} from "@hookform/resolvers/zod";
+import TextInput from "@/components/Forms/TextInput.tsx";
 
 const API_URL = import.meta.env.VITE_API_URI;
 
-interface OutfitItem {
+const addOutfitSchema = z.object({
+    name: z.string({description: "Name is required"}).min(1),
+    description: z.string({description: "Description is required"}).min(1),
+});
+type outfitFormValues = z.infer<typeof addOutfitSchema>;
+
+export interface OutfitItem {
     id: number;
-    cloth?: ICloth;
+    clothId?: number;
 }
 
 const MakeOutfitPage = () => {
-    const [outfitItemId, setOutfitItemId] = useState<number>(0);
     const [outfitItems, setOutfitItems] = useState<OutfitItem[]>([]);
-    const [tags, setTags] = useState<ITag[]>([]);
 
-    console.log(API_URL);
+    const OutfitForm = useForm<outfitFormValues>({
+        resolver: zodResolver(addOutfitSchema),
+        defaultValues: {},
+    });
 
-    useEffect(() => {
-        (async () => await load())();
-    }, []);
+    async function createOutfit(data: {name: string, description: string}) {
+        const outfit = {
+            name: data.name,
+            description: data.description,
+            clothes: outfitItems.map((outfitItem) => outfitItem.clothId),
+        }
 
-    async function load() {
         try {
-            const response = await axios.get(`${API_URL}/tag/all`);
-            setTags(response.data.data);
+            await axios.post(`${API_URL}/outfit/add`, outfit);
         } catch (error) {
             console.log(error);
         }
+
+        OutfitForm.reset();
+
+        // TODO: Maybe some sort of dialog that says you did a thing!
     }
 
+    function showError(error: any) {
+        console.log(error);
+    }
 
-    function addItem(direction: 'above' | 'below') {
-        if (outfitItems.length >= 5) return;
+    function isValidOutfit(outfitItems: OutfitItem[]): boolean {
+        if (outfitItems.length === 0) return false;
 
-        if (direction === 'above') {
-            setOutfitItems([{id: outfitItemId + 1}, ...outfitItems]);
-        } else {
-            setOutfitItems([...outfitItems, {id: outfitItemId + 1}]);
+        for (const outfitItem of outfitItems) {
+            if (outfitItem.clothId === undefined) return false;
         }
 
-        setOutfitItemId(outfitItemId + 1);
-    }
-
-    function removeItem(id: number) {
-        setOutfitItems(outfitItems.filter((outfitItem) => outfitItem.id !== id));
+        return true;
     }
 
     return (
         <>
             <Center>
-                <Stack spacing={4}>
-                    <IconButton
-                        aria-label='Add item'
-                        icon={<AddIcon/>}
-                        isDisabled={outfitItems.length >= 5}
-                        onClick={() => addItem('above')}
-                    />
-                    {outfitItems.map((item: OutfitItem) => {
-                        return (
-                            <ClothCard
-                                key={item.id}
-                                tags={tags}
-                                onClothChanged={(cloth: ICloth) => {
-                                    
-                                }}
-                                onDelete={() => removeItem(item.id)}
+                <FormProvider {...OutfitForm}>
+                    <form onSubmit={OutfitForm.handleSubmit(createOutfit, showError)}>
+                        <Stack spacing={4}>
+                            <TextInput
+                                required
+                                name={'name'}
+                                control={OutfitForm.control as any}
+                                label={'Name'}
+                                placeholder={'Enter outfit name...'}
                             />
-                        );
-                    })}
-                    <IconButton
-                        aria-label='Add item'
-                        icon={<AddIcon/>}
-                        isDisabled={outfitItems.length >= 5}
-                        onClick={() => addItem('below')}/>
-                </Stack>
-            </Center>
-            <Box height={4}/>
-            <Center>
-                <Button>Finish Outfit</Button>
+                            <TextInput
+                                required
+                                name={'description'}
+                                control={OutfitForm.control as any}
+                                label={'Description'}
+                                placeholder={'Enter outfit description...'}
+                            />
+                            <OutfitCreator onOutfitChanged={(outfitItems) => {
+                                setOutfitItems(outfitItems);
+                            }}/>
+                            <Button
+                                type="submit"
+                                isDisabled={!isValidOutfit(outfitItems)}>
+                                Finish Outfit
+                            </Button>
+                        </Stack>
+                    </form>
+                </FormProvider>
             </Center>
         </>
     );
