@@ -23,14 +23,14 @@ const getApp = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, database_1.default)();
     const mediaPath = path.resolve(__dirname, "../uploads");
     app.use("/uploads", express_1.default.static(mediaPath));
-    const staticPath = path.resolve(__dirname, "../../../frontend/dist");
-    app.use(express_1.default.static(staticPath));
-    app.get("*", (req, res, next) => {
-        if (!req.path.startsWith("/api")) {
-            return res.sendFile(path.join(staticPath, "index.html"));
-        }
-        next();
-    });
+    // const staticPath = path.resolve(__dirname, "../../../frontend/dist");
+    // app.use(express.static(staticPath));
+    // app.get("*", (req, res, next) => {
+    //   if (!req.path.startsWith("/api")) {
+    //     return res.sendFile(path.join(staticPath, "index.html"));
+    //   }
+    //   next();
+    // });
     app.use("/api", (0, index_2.default)());
     return app;
 });
