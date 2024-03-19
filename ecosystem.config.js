@@ -6,12 +6,12 @@ module.exports = {
       args: "run start",
       cwd: "./backend/",
     },
-    {
-      name: "frontend",
-      script: "npm",
-      args: "run build",
-      cwd: "./frontend/",
-      autorestart: false
-    },
+    // {
+    //   name: "frontend",
+    //   script: "npm",
+    //   args: "run build",
+    //   cwd: "./frontend/",
+    //   autorestart: false
+    // },
   ],
 };
