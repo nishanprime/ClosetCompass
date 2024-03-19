@@ -36,7 +36,7 @@ export function CustomTable<Data extends object>({
       <Thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <Tr key={headerGroup.id}>
-            {headerGroup.headers.map((header) => {
+            {headerGroup.headers?.map((header) => {
               const meta: any = header.column.columnDef.meta;
               return (
                 <Th

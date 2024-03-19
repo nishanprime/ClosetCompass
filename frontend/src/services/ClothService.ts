@@ -6,7 +6,10 @@ const addCloth = async (formData: {
   description: string;
   no_of_wears: number;
   cloth_id: string;
+  tags: [string];
 }) => {
+  console.log("form data")
+  console.log(formData)
   const { data } = await axios.post(`${API_URL}/add`, formData);
   return data?.data;
 };
@@ -31,6 +34,8 @@ const deleteClothById = async (clotheId: string) => {
   const { data } = await axios.delete(`${API_URL}/${clotheId}`);
   return data?.data;
 };
+
+
 
 export default {
   addCloth,

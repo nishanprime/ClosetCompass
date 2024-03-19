@@ -1,4 +1,9 @@
-import { ClothEntity, MediaEntity } from "@/entity";
+import {
+  ClothAndTagEntity,
+  ClothEntity,
+  MediaEntity,
+  TagEntity,
+} from "@/entity";
 import { errorHandler, sendError, sendSuccess } from "@/utils";
 import { Request, Response } from "express";
 import * as Yup from "yup";
@@ -107,7 +112,7 @@ export const getAllClothes = async (req: Request, res: Response) => {
   }
 };
 export const addCloth = async (req: Request, res: Response) => {
-  const { description, no_of_wears, cloth_id } = req.body;
+  const { description, no_of_wears, cloth_id, tags } = req.body;
   const schema = Yup.object().shape({
     no_of_wears: Yup.number().required(
       "Please enter the number of wears before washing"
@@ -116,9 +121,10 @@ export const addCloth = async (req: Request, res: Response) => {
       "Please enter the description of the cloth"
     ),
     cloth_id: Yup.string().optional(),
+    tags: Yup.array().of(Yup.string()),
   });
   try {
-    await schema.validate({ no_of_wears, description, cloth_id });
+    await schema.validate({ no_of_wears, description, cloth_id, tags });
     const current_user = req.user;
     const media = await MediaEntity.findOne({
       where: {
@@ -139,7 +145,16 @@ export const addCloth = async (req: Request, res: Response) => {
       wears_remaining: no_of_wears,
       media_id: media.id,
     }).save();
-    
+    if (tags && tags.length > 0) {
+      for (const tag of tags) {
+        const new_tag = await ClothAndTagEntity.create({
+          cloth_id: cloth.id,
+          tag_id: parseInt(tag) as number,
+        });
+        console.log("Just created", new_tag);
+        await new_tag.save();
+      }
+    }
     return sendSuccess({
       res,
       message: "Cloth added successfully",
