@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import * as Yup from "yup";
-import { MediaEntity, OutfitAndClothEntity, OutfitEntity } from "@/entity";
+import { ClothEntity, MediaEntity, OutfitAndClothEntity, OutfitEntity } from "@/entity";
 import { errorHandler, sendError, sendSuccess } from "@/utils";
 import { Brackets } from "typeorm";
 
@@ -62,16 +62,16 @@ export const getAllOutfits = async (req: Request, res: Response) => {
     const outfits = OutfitEntity.createQueryBuilder("outfit")
       .where("outfit.user_id = :id", { id: req.user.id })
       .leftJoinAndMapMany(
-        "outfit.clothes",
+        "outfit.locations",
         OutfitAndClothEntity,
         "outfit_clothes",
         "outfit_clothes.outfit_id = outfit.id"
       )
       .leftJoinAndMapMany(
-        "outfit.medias",
-        MediaEntity,
-        "media",
-        "media.id = outfit_clothes.cloth_id"
+        "outfit.clothes",
+        ClothEntity,
+        "cloth",
+        "cloth.media_id = outfit_clothes.cloth_id"
       );
 
     if (search && search !== "") {

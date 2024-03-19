@@ -4,7 +4,7 @@ import { handleSuccess } from "@/utils";
 import { useTable } from "@/hook/useTable";
 import { CustomTable } from "@/components/Table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Button, Flex, Skeleton } from "@chakra-ui/react";
+import { Button, Flex, Skeleton, Stack } from "@chakra-ui/react";
 import TablePagination from "@/components/Table/tablePagination";
 import SearchToolbar from "@/components/Table/searchbar";
 
@@ -43,10 +43,6 @@ const OutfitPages = () => {
     description: string;
     clothes: [
       {
-        id: string;
-        description: string;
-        no_of_wears: number;
-        wears_remaining: number;
         media_id: string;
       }
     ];
@@ -68,23 +64,23 @@ const OutfitPages = () => {
       cell: (info) => info.getValue(),
       header: "Description",
     }),
-    columnHelper.accessor("medias", {
+    columnHelper.accessor("clothes", {
       cell: (info) => {
-        {
-          info.getValue()?.map((media) => {
+        return (<Stack direction={"row"}>
+          {info.getValue()?.map((cloth) => {
             return (
               <Flex flex-direction="row">
                 <img
                   src={`${import.meta.env.VITE_API_URI}/files/${
-                    media.media_id
+                    cloth.media_id
                   }`}
                   alt="cloth"
                   className=" w-4"
                 />
               </Flex>
             );
-          });
-        }
+          })}
+        </Stack>);
       },
       header: "Clothes",
     }),
