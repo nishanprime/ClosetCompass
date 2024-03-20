@@ -88,7 +88,7 @@ const getAllOutfits = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         const outfits = entity_1.OutfitEntity.createQueryBuilder("outfit")
             .where("outfit.user_id = :id", { id: req.user.id })
             .leftJoinAndMapMany("outfit.locations", entity_1.OutfitAndClothEntity, "outfit_clothes", "outfit_clothes.outfit_id = outfit.id")
-            .leftJoinAndMapMany("outfit.clothes", entity_1.ClothEntity, "cloth", "cloth.media_id = outfit_clothes.cloth_id");
+            .leftJoinAndMapMany("outfit.clothes", entity_1.ClothEntity, "cloth", "cloth.id = outfit_clothes.cloth_id");
         if (search && search !== "") {
             outfits.andWhere(new typeorm_1.Brackets((qb) => {
                 qb.where("LOWER(outfit.description) LIKE LOWER(:search)", {
@@ -100,7 +100,7 @@ const getAllOutfits = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             outfits.orderBy(`outfit.${sortBy}`, sortOrder);
         }
         const total = yield outfits.getCount();
-        if (page) {
+        if (page && Number(page)) {
             outfits.offset((Number(page) - 1) & Number(pageSize));
             outfits.limit(Number(pageSize));
         }

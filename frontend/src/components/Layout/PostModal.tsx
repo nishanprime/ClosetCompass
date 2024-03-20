@@ -78,7 +78,6 @@ const PostModal = () => {
 
   const {
     data: allOutfits,
-    isLoading: outfitLoading,
     refetch,
   } = useQuery("all-outfits", async () => {
     const outfits = await OutfitService.getAllOutfits({
@@ -93,7 +92,9 @@ const PostModal = () => {
   console.log(allOutfits);
   return (
     <>
-      <Button onClick={() => {
+      <Button
+        colorScheme="brand.primaryScheme"
+      onClick={() => {
         refetch();
         onOpen();
         }}>Make Post</Button>

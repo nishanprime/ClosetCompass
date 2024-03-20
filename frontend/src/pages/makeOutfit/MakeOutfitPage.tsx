@@ -86,7 +86,11 @@ const MakeOutfitPage = () => {
                   setOutfitItems(outfitItems);
                 }}
               />
-              <Button type="submit" isDisabled={!isValidOutfit(outfitItems)}>
+              <Button
+                type="submit"
+                colorScheme="brand.primaryScheme"
+                isDisabled={!isValidOutfit(outfitItems)}
+              >
                 Finish Outfit
               </Button>
             </Stack>

@@ -1,8 +1,9 @@
 import { useAppContext } from "@/contexts";
 import { PostService, EngageService } from "@/services";
-import { DeleteIcon, TriangleUpIcon, TriangleDownIcon } from "@chakra-ui/icons";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useQuery } from "react-query";
 import Loader from "./Loader";
+import { ThumbsDown, ThumbsUp } from "lucide-react";
 
 const UserFeed = () => {
   
@@ -81,7 +82,7 @@ const UserFeed = () => {
                 <div className="mt-2 flex flex-row">
                   { likes?.map((like: {user_id:any, post_id:number}) => like.post_id).includes(post?.id) ? (
                     <div className="ml-2 flex flex-col">
-                      <TriangleUpIcon
+                      <ThumbsUp
                         color={"green"}
                         className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
                         onClick={async () => {
@@ -93,7 +94,7 @@ const UserFeed = () => {
                     </div>
                   ):(
                     <div className="ml-2 flex flex-col">
-                    <TriangleUpIcon
+                    <ThumbsUp
                       color={"grey"}
                       className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
                       onClick={async () => {
@@ -106,7 +107,7 @@ const UserFeed = () => {
                   )}
                   { dislikes?.map((dislike: {user_id:any, post_id:number}) => dislike.post_id).includes(post?.id) ? (
                     <div className="ml-2 flex flex-col">
-                      <TriangleDownIcon
+                      <ThumbsDown
                         color={"red"}
                         className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
                         onClick={async () => {
@@ -118,7 +119,7 @@ const UserFeed = () => {
                     </div>
                   ):(
                     <div className="ml-2 flex flex-col">
-                    <TriangleDownIcon
+                    <ThumbsDown
                       color={"grey"}
                       className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
                       onClick={async () => {

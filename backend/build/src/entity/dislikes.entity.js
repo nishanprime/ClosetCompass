@@ -21,6 +21,10 @@ __decorate([
     __metadata("design:type", Number)
 ], DislikesEntity.prototype, "post_id", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", Number)
+], DislikesEntity.prototype, "id", void 0);
+__decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)
 ], DislikesEntity.prototype, "created_at", void 0);
