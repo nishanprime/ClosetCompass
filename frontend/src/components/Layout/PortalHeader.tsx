@@ -10,11 +10,11 @@ const Links: {
   link: string;
   name: string;
 }[] = [
-  {
-    ICON: User,
-    link: "/profile",
-    name: "Profile",
-  },
+  // {
+  //   ICON: User,
+  //   link: "/profile",
+  //   name: "Profile",
+  // },
   {
     ICON: Shirt,
     link: "/clothes",
