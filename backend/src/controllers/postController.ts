@@ -4,8 +4,6 @@ import {
   DislikesEntity,
   CommentEntity,
   UserEntity,
-  MediaEntity,
-  OutfitEntity,
   OutfitAndClothEntity,
   ClothEntity,
 } from "@/entity";
@@ -75,6 +73,7 @@ export const addPost = async (req: Request, res: Response) => {
   }
 };
 export const deletePost = async (req: Request, res: Response) => {
+  console.log("Howdy");
   const { id } = req.params;
   const schema = Yup.object().shape({
     id: Yup.string().required("Please enter the id of the post"),
@@ -151,13 +150,33 @@ export const getLikesByPost = async (req: Request, res: Response) => {
     errorHandler(res, error);
   }
 };
+export const getLikesByUser = async (req: Request, res: Response) => {
+  try {
+    const current_user = req.user;
+    const likes = await LikesEntity.find({
+      where: {
+        user_id: current_user.id,
+      },
+    });
+    return sendSuccess({
+      res,
+      message: "Likes fetched successfully",
+      data: likes,
+    });
+  } catch (error) {
+    console.log(error);
+    errorHandler(res, error);
+  }
+};
 export const unlike = async (req: Request, res: Response) => {
-  const { post_id } = req.params;
+  console.log("here i am");
+  console.log(req.body);
+  const { post_id } = req.body;
   const schema = Yup.object().shape({
     post_id: Yup.string().required("Please enter the id of the post"),
   });
-  await schema.validate({ post_id });
   try {
+    await schema.validate({ post_id });
     const current_user = req.user;
     const like = await LikesEntity.findOne({
       where: {
@@ -172,10 +191,7 @@ export const unlike = async (req: Request, res: Response) => {
         message: "Like not found",
       });
     }
-    await LikesEntity.delete({
-      post_id: parseInt(post_id) as number,
-      user_id: current_user.id,
-    });
+    await LikesEntity.remove(like);
     return sendSuccess({
       res,
       message: "Unliked successfully",
@@ -227,13 +243,31 @@ export const getDislikesByPost = async (req: Request, res: Response) => {
     errorHandler(res, error);
   }
 };
+export const getDislikesByUser = async (req: Request, res: Response) => {
+  try {
+    const current_user = req.user;
+    const dislikes = await DislikesEntity.find({
+      where: {
+        user_id: current_user.id,
+      },
+    });
+    return sendSuccess({
+      res,
+      message: "Disikes fetched successfully",
+      data: dislikes,
+    });
+  } catch (error) {
+    console.log(error);
+    errorHandler(res, error);
+  }
+};
 export const undislike = async (req: Request, res: Response) => {
-  const { post_id } = req.params;
+  const { post_id } = req.body;
   const schema = Yup.object().shape({
     post_id: Yup.string().required("Please enter the id of the post"),
   });
-  await schema.validate({ post_id });
   try {
+    await schema.validate({ post_id });
     const current_user = req.user;
     const dislike = await DislikesEntity.findOne({
       where: {
@@ -289,9 +323,7 @@ export const addComment = async (req: Request, res: Response) => {
   }
 };
 export const updateComment = async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  const { text } = req.body;
+  const { id, text } = req.body;
 
   const schema = Yup.object().shape({
     id: Yup.string().optional(),
@@ -326,7 +358,7 @@ export const updateComment = async (req: Request, res: Response) => {
   }
 };
 export const deleteComment = async (req: Request, res: Response) => {
-  const { id } = req.params;
+  const { id } = req.body;
   const schema = Yup.object().shape({
     id: Yup.string().required("Please enter the id of the comment"),
   });
@@ -381,9 +413,11 @@ export default {
   deletePost,
   addLike,
   getLikesByPost,
+  getLikesByUser,
   unlike,
   addDislike,
   getDislikesByPost,
+  getDislikesByUser,
   undislike,
   addComment,
   updateComment,

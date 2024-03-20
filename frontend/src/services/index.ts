@@ -7,4 +7,5 @@ import ClothService from "./ClothService";
 import PostService from "./PostService";
 import OutfitService from "./OutfitService";
 import TagService from "./TagService";
-export { AuthService, FileService, ClothService, PostService, OutfitService, TagService };
+import EngageService from "./EngageService";
+export { AuthService, FileService, ClothService, PostService, OutfitService, TagService, EngageService };
