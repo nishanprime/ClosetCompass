@@ -9,11 +9,7 @@ import { AuthService } from "@/services";
 import { handleError } from "@/utils";
 
 const Register = () => {
-  const {
-    control,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm();
+  const { control, handleSubmit } = useForm();
 
   const navigate = useNavigate();
 

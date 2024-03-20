@@ -13,13 +13,11 @@ import SearchToolbar from "../../components/Table/searchbar";
 const ClothPages = () => {
   const {
     sort,
-    setSort,
     pagination,
     setPagination,
     search,
     setSearch,
     total,
-    setTotal,
   } = useTable();
 
   const {
@@ -40,7 +38,7 @@ const ClothPages = () => {
   );
 
   const { mutateAsync, isLoading } = useMutation(ClothService.addCloth, {
-    onSuccess: (data) => {
+    onSuccess: () => {
       handleSuccess("Cloth added successfully");
       refetch();
     },

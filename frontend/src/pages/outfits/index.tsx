@@ -1,6 +1,5 @@
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { OutfitService } from "@/services";
-import { handleSuccess } from "@/utils";
 import { useTable } from "@/hook/useTable";
 import { CustomTable } from "@/components/Table";
 import { createColumnHelper } from "@tanstack/react-table";
@@ -11,13 +10,11 @@ import SearchToolbar from "@/components/Table/searchbar";
 const OutfitPages = () => {
   const {
     sort,
-    setSort,
     pagination,
     setPagination,
     search,
     setSearch,
     total,
-    setTotal,
   } = useTable();
 
   const {

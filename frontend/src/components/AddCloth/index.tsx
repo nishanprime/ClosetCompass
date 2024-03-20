@@ -43,6 +43,7 @@ const AddClothForm = ({
   onSubmit: (data: any) => any;
   isLoading: boolean;
 }) => {
+  // @ts-ignore
   const [tags, setTags] = useState<ITag[]>([]);
 
   useEffect(() => {
@@ -66,11 +67,7 @@ const AddClothForm = ({
     },
   });
 
-  const {
-    data: allTags,
-    isLoading: tagsLoading,
-    refetch,
-  } = useQuery("all-tags", async () => {
+  const { data: allTags } = useQuery("all-tags", async () => {
     const tags = await TagService.getAllTags();
     return tags;
   });

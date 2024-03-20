@@ -1,4 +1,4 @@
-import { Flex, Image, Link } from "@chakra-ui/react";
+import { Flex, Link } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
 const AuthHeader = () => {
