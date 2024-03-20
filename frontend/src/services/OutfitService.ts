@@ -12,6 +12,7 @@ const getAllOutfits = async (query: {
   sort_order: "ASC" | "DESC";
 }) => {
   const { data } = await axios.get(`${API_URL}/all`, { params: query });
+
   return data?.data;
 };
 

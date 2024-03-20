@@ -9,5 +9,5 @@ const post = async (form_data: any) => {
 };
 
 export default {
-    post,
-  };
+  post,
+};
