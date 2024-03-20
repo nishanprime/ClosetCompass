@@ -32,7 +32,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getCommentsByPost = exports.deleteComment = exports.updateComment = exports.addComment = exports.undislike = exports.getDislikesByPost = exports.addDislike = exports.unlike = exports.getLikesByPost = exports.addLike = exports.deletePost = exports.addPost = exports.getAllPosts = void 0;
+exports.getCommentsByPost = exports.deleteComment = exports.updateComment = exports.addComment = exports.undislike = exports.getDislikesByUser = exports.getDislikesByPost = exports.addDislike = exports.unlike = exports.getLikesByUser = exports.getLikesByPost = exports.addLike = exports.deletePost = exports.addPost = exports.getAllPosts = void 0;
 const entity_1 = require("../entity");
 const utils_1 = require("../utils");
 const helpers_1 = require("../../src/utils/helpers");
@@ -85,6 +85,7 @@ const addPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.addPost = addPost;
 const deletePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("Howdy");
     const { id } = req.params;
     const schema = Yup.object().shape({
         id: Yup.string().required("Please enter the id of the post"),
@@ -165,13 +166,35 @@ const getLikesByPost = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.getLikesByPost = getLikesByPost;
+const getLikesByUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const current_user = req.user;
+        const likes = yield entity_1.LikesEntity.find({
+            where: {
+                user_id: current_user.id,
+            },
+        });
+        return (0, utils_1.sendSuccess)({
+            res,
+            message: "Likes fetched successfully",
+            data: likes,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        (0, utils_1.errorHandler)(res, error);
+    }
+});
+exports.getLikesByUser = getLikesByUser;
 const unlike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { post_id } = req.params;
+    console.log("here i am");
+    console.log(req.body);
+    const { post_id } = req.body;
     const schema = Yup.object().shape({
         post_id: Yup.string().required("Please enter the id of the post"),
     });
-    yield schema.validate({ post_id });
     try {
+        yield schema.validate({ post_id });
         const current_user = req.user;
         const like = yield entity_1.LikesEntity.findOne({
             where: {
@@ -186,10 +209,7 @@ const unlike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 message: "Like not found",
             });
         }
-        yield entity_1.LikesEntity.delete({
-            post_id: parseInt(post_id),
-            user_id: current_user.id,
-        });
+        yield entity_1.LikesEntity.remove(like);
         return (0, utils_1.sendSuccess)({
             res,
             message: "Unliked successfully",
@@ -245,13 +265,33 @@ const getDislikesByPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
     }
 });
 exports.getDislikesByPost = getDislikesByPost;
+const getDislikesByUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const current_user = req.user;
+        const dislikes = yield entity_1.DislikesEntity.find({
+            where: {
+                user_id: current_user.id,
+            },
+        });
+        return (0, utils_1.sendSuccess)({
+            res,
+            message: "Disikes fetched successfully",
+            data: dislikes,
+        });
+    }
+    catch (error) {
+        console.log(error);
+        (0, utils_1.errorHandler)(res, error);
+    }
+});
+exports.getDislikesByUser = getDislikesByUser;
 const undislike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { post_id } = req.params;
+    const { post_id } = req.body;
     const schema = Yup.object().shape({
         post_id: Yup.string().required("Please enter the id of the post"),
     });
-    yield schema.validate({ post_id });
     try {
+        yield schema.validate({ post_id });
         const current_user = req.user;
         const dislike = yield entity_1.DislikesEntity.findOne({
             where: {
@@ -308,8 +348,7 @@ const addComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.addComment = addComment;
 const updateComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
-    const { text } = req.body;
+    const { id, text } = req.body;
     const schema = Yup.object().shape({
         id: Yup.string().optional(),
         text: Yup.string().optional(),
@@ -345,7 +384,7 @@ const updateComment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.updateComment = updateComment;
 const deleteComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { id } = req.params;
+    const { id } = req.body;
     const schema = Yup.object().shape({
         id: Yup.string().required("Please enter the id of the comment"),
     });
@@ -403,9 +442,11 @@ exports.default = {
     deletePost: exports.deletePost,
     addLike: exports.addLike,
     getLikesByPost: exports.getLikesByPost,
+    getLikesByUser: exports.getLikesByUser,
     unlike: exports.unlike,
     addDislike: exports.addDislike,
     getDislikesByPost: exports.getDislikesByPost,
+    getDislikesByUser: exports.getDislikesByUser,
     undislike: exports.undislike,
     addComment: exports.addComment,
     updateComment: exports.updateComment,

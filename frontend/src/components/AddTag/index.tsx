@@ -8,10 +8,7 @@ import {
   ModalFooter,
 } from "@chakra-ui/modal";
 import { useForm } from "react-hook-form";
-import {
-  Button,
-  useDisclosure, Flex
-} from "@chakra-ui/react";
+import { Button, useDisclosure, Flex } from "@chakra-ui/react";
 import { useMutation } from "react-query";
 import { AxiosError } from "axios";
 import Field from "../Forms/Field";
@@ -45,7 +42,12 @@ const TagModal = () => {
   };
   return (
     <>
-      <Button onClick={onOpen} w="full" mt="3">
+      <Button
+        onClick={onOpen}
+        w="full"
+        mt="3"
+        colorScheme="brand.primaryScheme"
+      >
         Make New Tag
       </Button>
 

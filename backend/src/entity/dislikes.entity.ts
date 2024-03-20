@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  Column,
 } from "typeorm";
 
 @Entity({ name: "dislikes_entity" })
@@ -15,6 +16,9 @@ export default class DislikesEntity extends BaseEntity implements IDislikes {
 
   @PrimaryColumn()
   post_id: number;
+
+  @Column({nullable: true})
+  id: number;
 
   // default columns
   @CreateDateColumn()

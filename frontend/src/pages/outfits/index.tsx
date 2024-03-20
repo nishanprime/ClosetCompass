@@ -40,6 +40,7 @@ const OutfitPages = () => {
     description: string;
     clothes: [
       {
+        description: string;
         media_id: string;
       }
     ];
@@ -71,7 +72,7 @@ const OutfitPages = () => {
                   src={`${import.meta.env.VITE_API_URI}/files/${
                     cloth.media_id
                   }`}
-                  alt="cloth"
+                  alt={cloth.description}
                   className=" w-4"
                 />
               </Flex>

@@ -15,7 +15,7 @@ const get_all_posts = async () => {
 };
 
 const delete_post = async (post_id: number) => {
-  const { data } = await axios.delete(`${API_URL}/${post_id}`);
+  const { data } = await axios.delete(`${API_URL}/remove/` + post_id);
   return data?.data;
 };
 

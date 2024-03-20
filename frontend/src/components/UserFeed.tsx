@@ -1,8 +1,9 @@
 import { useAppContext } from "@/contexts";
-import { PostService } from "@/services";
+import { PostService, EngageService } from "@/services";
 import { DeleteIcon } from "@chakra-ui/icons";
 import { useQuery } from "react-query";
 import Loader from "./Loader";
+import { ThumbsDown, ThumbsUp } from "lucide-react";
 
 const UserFeed = () => {
   
@@ -10,6 +11,20 @@ const UserFeed = () => {
   const { data, isLoading, refetch } = useQuery("user_feed", async () => {
     return PostService.get_all_posts();
   });
+
+  const {
+    data: likes,
+    refetch: refetchLikes
+  } = useQuery("user_likes", async () => {
+    return EngageService.my_likes();
+  })
+
+  const {
+    data: dislikes,
+    refetch: refetchDislikes
+  } = useQuery("user_dislikes", async () => {
+    return EngageService.my_dislikes();
+  })
 
   if (isLoading) return <Loader />;
   return (
@@ -64,6 +79,58 @@ const UserFeed = () => {
                     />
                   </div>
                 )}
+                <div className="mt-2 flex flex-row">
+                  { likes?.map((like: {user_id:any, post_id:number}) => like.post_id).includes(post?.id) ? (
+                    <div className="ml-2 flex flex-col">
+                      <ThumbsUp
+                        color={"green"}
+                        className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
+                        onClick={async () => {
+                          await EngageService.unlike({post_id: post?.id});
+                          refetchLikes();
+                        }}
+                      />
+                      <p className="text-sm text-green-500">Unlike</p>
+                    </div>
+                  ):(
+                    <div className="ml-2 flex flex-col">
+                    <ThumbsUp
+                      color={"grey"}
+                      className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
+                      onClick={async () => {
+                        await EngageService.like({post_id: post?.id});
+                        refetchLikes();
+                      }}
+                    />
+                    <p className="text-sm text-gray-500">Like</p>
+                    </div>
+                  )}
+                  { dislikes?.map((dislike: {user_id:any, post_id:number}) => dislike.post_id).includes(post?.id) ? (
+                    <div className="ml-2 flex flex-col">
+                      <ThumbsDown
+                        color={"red"}
+                        className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
+                        onClick={async () => {
+                          await EngageService.undislike({post_id: post?.id});
+                          refetchDislikes();
+                        }}
+                      />
+                      <p className="text-sm text-red-500">Un-dislike</p>
+                    </div>
+                  ):(
+                    <div className="ml-2 flex flex-col">
+                    <ThumbsDown
+                      color={"grey"}
+                      className=" hover:scale-105 ease-in-out transform duration-300 cursor-pointer"
+                      onClick={async () => {
+                        await EngageService.dislike({post_id: post?.id});
+                        refetchDislikes();
+                      }}
+                    />
+                    <p className="text-sm text-gray-500">Dislike</p>
+                    </div>
+                  )}
+                </div>
                 <div className="absolute bottom-2 right-2">
                   <p className="text-sm text-gray-500">{post?.privacy}</p>
                 </div>

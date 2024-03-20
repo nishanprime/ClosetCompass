@@ -9,7 +9,10 @@ export const middlewaresConfig = (app: Express) => {
 
   app.use(
     cors({
-      origin: 'https://closetcompass.nishanthapa.com',
+      origin:
+        process.env.NODE_ENV === "production"
+          ? "https://closetcompass.nishanthapa.com"
+          : true,
       credentials: true,
     })
   );

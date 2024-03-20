@@ -23,7 +23,6 @@ import FileUpload from "../Upload";
 import { OutfitService, PostService } from "@/services";
 import { handleError } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTable } from "@/hook/useTable";
 
 export const addPostSchema = z
   .object({
@@ -76,33 +75,29 @@ const PostModal = () => {
     resolver: zodResolver(addPostSchema),
     defaultValues: {},
   });
-  const {
-    sort,
-    pagination,
-    search,
-    total,
-  } = useTable();
 
   const {
     data: allOutfits,
-  } = useQuery(
-    ["clothe-inventory", { sort, pagination, search, total }],
-    () => {
-      return OutfitService.getAllOutfits({
-        search: search,
-        page: pagination.current,
-        page_size: pagination.pageSize,
-        sort_by: sort?.field || "created_at",
-        sort_order: sort?.order || "DESC",
-      });
-    }
-  );
-
+    refetch,
+  } = useQuery("all-outfits", async () => {
+    const outfits = await OutfitService.getAllOutfits({
+      search: "",
+      sort_order: "DESC",
+      page: 0,
+      page_size: 100,
+      sort_by: "",
+    });
+    return outfits;
+  });
+  console.log(allOutfits);
   return (
     <>
-      <Button onClick={onOpen} colorScheme="teal" className="w-fit">
-        Make Post
-      </Button>
+      <Button
+        colorScheme="brand.primaryScheme"
+      onClick={() => {
+        refetch();
+        onOpen();
+        }}>Make Post</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
         <FormProvider {...PostForm}>
