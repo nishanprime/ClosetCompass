@@ -12,7 +12,7 @@ const Register = () => {
   const {
     control,
     handleSubmit,
-    formState: { isValid },
+    
   } = useForm();
 
   const navigate = useNavigate();

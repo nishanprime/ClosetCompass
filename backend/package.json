@@ -8,7 +8,7 @@
     "lint-watch": "esw --watch src .eslintrc.js",
     "dev": "set NODE_ENV=development && nodemon index.ts",
     "dev-prod": "set NODE_ENV=production && nodemon index.ts",
-    "postbuild": "rm -rf ./build/.env && cp prod.env ./build/.env && cp ./src/bootstrap/certificate.crt ./build/src/bootstrap/certificate.crt",
+    "postbuild": "rm -rf ./build/.env && cp prod.env ./build/.env",
     "build": "tsc && tsc-alias"
   },
   "author": "Bipin Thapa",

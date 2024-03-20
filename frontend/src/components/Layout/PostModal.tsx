@@ -45,7 +45,7 @@ export const addPostSchema = z
       }
     ),
   })
-  .refine((data) => {
+  .refine(() => {
     return true;
   });
 
@@ -78,19 +78,13 @@ const PostModal = () => {
   });
   const {
     sort,
-    setSort,
     pagination,
-    setPagination,
     search,
-    setSearch,
     total,
-    setTotal,
   } = useTable();
 
   const {
     data: allOutfits,
-    isLoading: loading,
-    refetch,
   } = useQuery(
     ["clothe-inventory", { sort, pagination, search, total }],
     () => {
@@ -106,19 +100,24 @@ const PostModal = () => {
 
   return (
     <>
-      <Button onClick={onOpen}>Make Post</Button>
+      <Button onClick={onOpen} colorScheme="teal" className="w-fit">
+        Make Post
+      </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
         <FormProvider {...PostForm}>
           <form
             onSubmit={PostForm.handleSubmit(
-              (data) => {
+              async (data) => {
                 onSubmit({
                   outfit_id: data?.outfit?.value,
                   caption: data.caption,
                   media_id: data.picture.id,
                 });
                 PostForm.reset();
+                // close modal
+                onClose();
+                window.location.reload();
               },
               (error) => {
                 console.log("printing error", error);

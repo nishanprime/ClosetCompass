@@ -12,12 +12,11 @@ import {
   Button,
   useDisclosure, Flex
 } from "@chakra-ui/react";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { AxiosError } from "axios";
 import Field from "../Forms/Field";
 import { handleError } from "@/utils";
 import { TagService } from "@/services";
-const API_URL = import.meta.env.VITE_API_URI + "/tag";
 
 const TagModal = () => {
   const {
@@ -26,7 +25,7 @@ const TagModal = () => {
     formState: { isValid },
   } = useForm();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { mutateAsync, isLoading } = useMutation(TagService.addTag, {
+  const { mutateAsync } = useMutation(TagService.addTag, {
     onSuccess: () => {
       return onClose();
     },
