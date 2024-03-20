@@ -93,7 +93,7 @@ export const getAllOutfits = async (req: Request, res: Response) => {
       outfits.orderBy(`outfit.${sortBy}`, sortOrder as "ASC" | "DESC");
     }
     const total = await outfits.getCount();
-    if (page) {
+    if (page && Number(page)) {
       outfits.offset((Number(page) - 1) & Number(pageSize));
       outfits.limit(Number(pageSize));
     }
