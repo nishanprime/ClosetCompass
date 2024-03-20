@@ -1,15 +1,8 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URI + "/clothe";
+const API_URL = import.meta.env.VITE_API_URI + "/outfit";
 
-const addOutfit = async (formData: {
-  description: string;
-  no_of_wears: number;
-  cloth_id: string;
-}) => {
-  const { data } = await axios.post(`${API_URL}/add`, formData);
-  return data?.data;
-};
+
 
 const getAllOutfits = async (query: {
   search: string;
@@ -19,6 +12,7 @@ const getAllOutfits = async (query: {
   sort_order: "ASC" | "DESC";
 }) => {
   const { data } = await axios.get(`${API_URL}/all`, { params: query });
+
   return data?.data;
 };
 
@@ -33,7 +27,6 @@ const deleteOutfitById = async (outfitId: string) => {
 };
 
 export default {
-  addOutfit,
   getOneOutfit,
   getAllOutfits,
   deleteOutfitById,

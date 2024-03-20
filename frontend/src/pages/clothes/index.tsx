@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 import AddClothForm from "@/components//AddCloth";
+import AddTag from "@/components//AddTag";
 import { ClothService } from "@/services";
 import { handleSuccess } from "@/utils";
 import { useTable } from "@/hook/useTable";
@@ -106,6 +107,7 @@ const ClothPages = () => {
       <div className="w-full h-screen flex gap-4 p-4">
         <div className="w-1/4">
           <AddClothForm onSubmit={mutateAsync} isLoading={isLoading} />
+          <AddTag />
         </div>
         <Skeleton isLoaded={!loading} height={"50%"} className="w-3/4">
           <div className="w-full flex flex-col items-start gap-4">

@@ -26,7 +26,7 @@ export default class PostEntity extends BaseEntity implements IPost {
   @Column({ nullable: false })
   outfit_id: number;
 
-  @Column()
+  @Column({ nullable: false, default: "public" })
   privacy: string;
 
   // default columns

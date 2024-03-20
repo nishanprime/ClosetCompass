@@ -1,17 +1,42 @@
-import { PostEntity, MediaEntity, LikesEntity, DislikesEntity, CommentEntity } from "@/entity";
 import {
-  errorHandler,
-  sendSuccess,
-  sendError,
-} from "@/utils";
+  PostEntity,
+  LikesEntity,
+  DislikesEntity,
+  CommentEntity,
+  UserEntity,
+  MediaEntity,
+  OutfitEntity,
+  OutfitAndClothEntity,
+  ClothEntity,
+} from "@/entity";
+import { errorHandler, sendSuccess, sendError } from "@/utils";
 import { deleteMediaById } from "src/utils/helpers";
 import { Request, Response } from "express";
 import * as Yup from "yup";
-import path from "path";
 
 export const getAllPosts = async (req: Request, res: Response) => {
   try {
-    const posts = await PostEntity.find();
+    const posts = await PostEntity.createQueryBuilder("post")
+      .leftJoinAndMapOne(
+        "post.user",
+        UserEntity,
+        "user",
+        "user.id = post.user_id"
+      )
+      .leftJoinAndMapMany(
+        "post.outfitAndCloth",
+        OutfitAndClothEntity,
+        "outfit_and_cloth",
+        "outfit_and_cloth.outfit_id = post.outfit_id"
+      )
+      .leftJoinAndMapMany(
+        "post.clothes", // This will map directly to the post entity under the .clothes property
+        ClothEntity,
+        "cloth",
+        "cloth.id = outfit_and_cloth.cloth_id"
+      )
+      .orderBy("post.created_at", "DESC")
+      .getMany();
     return sendSuccess({
       res,
       message: "Posts fetched successfully",
@@ -23,42 +48,25 @@ export const getAllPosts = async (req: Request, res: Response) => {
   }
 };
 export const addPost = async (req: Request, res: Response) => {
-  const { text, privacy, outfit_id } = req.body;
+  const { caption, outfit_id, media_id } = req.body;
 
   const schema = Yup.object().shape({
-    outfit_id: Yup.number().required(
-        "Requires outfit_id to post"
-    ),
-    privacy: Yup.string().required(
-        "Provide privacy setting"
-    ),
+    outfit_id: Yup.number().required("Requires outfit_id to post"),
   });
   try {
-    await schema.validate({ privacy, outfit_id });
+    await schema.validate({ outfit_id });
     const current_user = req.user;
-    let media;
-    // make sure to add host to the file path and url encode the file path
-    if (req.file) {
-      const file = req.file;
-      const relativePath = path.relative(".", req.file.path);
-      media = await MediaEntity.create({
-        relative_path: relativePath,
-        media_type: file.mimetype.split("/")[1],
-      }).save();
-    }
     const post = await PostEntity.create({
       user_id: current_user.id,
-      media_id: (media ? media.id : null),
-      text,
+      media_id: media_id,
+      text: caption,
       outfit_id,
-      privacy,
     }).save();
     return sendSuccess({
       res,
       message: "Posted successfully",
       data: {
         ...post,
-
       },
     });
   } catch (error) {
@@ -104,9 +112,7 @@ export const deletePost = async (req: Request, res: Response) => {
 export const addLike = async (req: Request, res: Response) => {
   const { post_id } = req.body;
   const schema = Yup.object().shape({
-    post_id: Yup.number().required(
-        "Requires post_id"
-    ),
+    post_id: Yup.number().required("Requires post_id"),
   });
   try {
     await schema.validate({ post_id });
@@ -120,10 +126,8 @@ export const addLike = async (req: Request, res: Response) => {
       message: "Liked successfully",
       data: {
         ...like,
-
       },
     });
-
   } catch (error) {
     console.log(error);
     errorHandler(res, error);
@@ -135,7 +139,7 @@ export const getLikesByPost = async (req: Request, res: Response) => {
     const likes = await LikesEntity.find({
       where: {
         post_id: parseInt(post_id) as number,
-      }
+      },
     });
     return sendSuccess({
       res,
@@ -158,7 +162,7 @@ export const unlike = async (req: Request, res: Response) => {
     const like = await LikesEntity.findOne({
       where: {
         post_id: parseInt(post_id) as number,
-        user_id: current_user.id
+        user_id: current_user.id,
       },
     });
     if (!like) {
@@ -169,8 +173,8 @@ export const unlike = async (req: Request, res: Response) => {
       });
     }
     await LikesEntity.delete({
-        post_id: parseInt(post_id) as number,
-        user_id: current_user.id,
+      post_id: parseInt(post_id) as number,
+      user_id: current_user.id,
     });
     return sendSuccess({
       res,
@@ -184,9 +188,7 @@ export const unlike = async (req: Request, res: Response) => {
 export const addDislike = async (req: Request, res: Response) => {
   const { post_id } = req.body;
   const schema = Yup.object().shape({
-    post_id: Yup.number().required(
-        "Requires post_id"
-    ),
+    post_id: Yup.number().required("Requires post_id"),
   });
   try {
     await schema.validate({ post_id });
@@ -200,10 +202,8 @@ export const addDislike = async (req: Request, res: Response) => {
       message: "Disliked successfully",
       data: {
         ...dislike,
-
       },
     });
-
   } catch (error) {
     console.log(error);
     errorHandler(res, error);
@@ -215,7 +215,7 @@ export const getDislikesByPost = async (req: Request, res: Response) => {
     const dislikes = await DislikesEntity.find({
       where: {
         post_id: parseInt(post_id) as number,
-      }
+      },
     });
     return sendSuccess({
       res,
@@ -238,7 +238,7 @@ export const undislike = async (req: Request, res: Response) => {
     const dislike = await DislikesEntity.findOne({
       where: {
         post_id: parseInt(post_id) as number,
-        user_id: current_user.id
+        user_id: current_user.id,
       },
     });
     if (!dislike) {
@@ -249,8 +249,8 @@ export const undislike = async (req: Request, res: Response) => {
       });
     }
     await DislikesEntity.delete({
-        post_id: parseInt(post_id) as number,
-        user_id: current_user.id,
+      post_id: parseInt(post_id) as number,
+      user_id: current_user.id,
     });
     return sendSuccess({
       res,
@@ -265,12 +265,8 @@ export const addComment = async (req: Request, res: Response) => {
   const { text, post_id } = req.body;
 
   const schema = Yup.object().shape({
-    post_id: Yup.number().required(
-        "Requires post_id to comment"
-    ),
-    text: Yup.string().required(
-        "Comment cannot be empty"
-    ),
+    post_id: Yup.number().required("Requires post_id to comment"),
+    text: Yup.string().required("Comment cannot be empty"),
   });
   try {
     await schema.validate({ text, post_id });
@@ -285,7 +281,6 @@ export const addComment = async (req: Request, res: Response) => {
       message: "Posted successfully",
       data: {
         ...comment,
-
       },
     });
   } catch (error) {
@@ -300,7 +295,7 @@ export const updateComment = async (req: Request, res: Response) => {
 
   const schema = Yup.object().shape({
     id: Yup.string().optional(),
-    text: Yup.string().optional()
+    text: Yup.string().optional(),
   });
   await schema.validate({ id, text });
   try {
@@ -367,7 +362,7 @@ export const getCommentsByPost = async (req: Request, res: Response) => {
     const comments = await CommentEntity.find({
       where: {
         post_id: parseInt(post_id) as number,
-      }
+      },
     });
     return sendSuccess({
       res,
@@ -379,7 +374,6 @@ export const getCommentsByPost = async (req: Request, res: Response) => {
     errorHandler(res, error);
   }
 };
-
 
 export default {
   getAllPosts,

@@ -3,7 +3,7 @@ import { OutfitService } from "@/services";
 import { useTable } from "@/hook/useTable";
 import { CustomTable } from "@/components/Table";
 import { createColumnHelper } from "@tanstack/react-table";
-import { Button,  Skeleton } from "@chakra-ui/react";
+import { Button, Flex, Skeleton, Stack } from "@chakra-ui/react";
 import TablePagination from "@/components/Table/tablePagination";
 import SearchToolbar from "@/components/Table/searchbar";
 
@@ -18,7 +18,7 @@ const OutfitPages = () => {
   } = useTable();
 
   const {
-    data,
+    data: outfits,
     isLoading: loading,
     refetch,
   } = useQuery(
@@ -36,15 +36,13 @@ const OutfitPages = () => {
 
   type OutfitTableEntries = {
     id: string;
-    name:string;
+    name: string;
     description: string;
-    clothes: [{
-      id: string;
-      description: string;
-      no_of_wears: number;
-      wears_remaining: number;
-      media_id: string;
-    }]
+    clothes: [
+      {
+        media_id: string;
+      }
+    ];
     actions: React.ReactNode;
   };
 
@@ -57,7 +55,7 @@ const OutfitPages = () => {
     }),
     columnHelper.accessor("name", {
       cell: (info) => info.getValue(),
-      header: "Name"
+      header: "Name",
     }),
     columnHelper.accessor("description", {
       cell: (info) => info.getValue(),
@@ -65,18 +63,21 @@ const OutfitPages = () => {
     }),
     columnHelper.accessor("clothes", {
       cell: (info) => {
-        return (`<Flex>
-          ${info.getValue().map((cloth) => {
-          `<Flex flex-direction="row">
-            <img
-              src=${import.meta.env.VITE_API_URI}/files/${cloth.media_id}
-              alt="cloth"
-              className=" w-4"
-            />
-          </Flex>`
-        })}
-        </Flex>`
-        );
+        return (<Stack direction={"row"}>
+          {info.getValue()?.map((cloth) => {
+            return (
+              <Flex flex-direction="row">
+                <img
+                  src={`${import.meta.env.VITE_API_URI}/files/${
+                    cloth.media_id
+                  }`}
+                  alt="cloth"
+                  className=" w-4"
+                />
+              </Flex>
+            );
+          })}
+        </Stack>);
       },
       header: "Clothes",
     }),
@@ -97,16 +98,19 @@ const OutfitPages = () => {
       header: "Actions",
     }),
   ];
-
+  console.log("printing outfits", outfits?.outfits || []);
   return (
     <div>
       <div className="w-full h-screen flex gap-4 p-4">
         <Skeleton isLoaded={!loading} height={"50%"} className="w-3/4">
           <div className="w-full flex flex-col items-start gap-4">
             <div className=" min-w-[400px]">
-              <SearchToolbar setSearch={setSearch} placeholder="Search Outfit" />
+              <SearchToolbar
+                setSearch={setSearch}
+                placeholder="Search Outfit"
+              />
             </div>
-            <CustomTable data={data?.outfits || []} columns={columns} />
+            <CustomTable data={outfits?.outfits || []} columns={columns} />
             <TablePagination
               total={total || 0}
               pagination={pagination}

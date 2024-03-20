@@ -11,7 +11,7 @@ PostRouter.route("/add").post(
   dynamicUpload("clothe", "clothes"),
   PostController.addPost
 );
-PostRouter.route("/delete").delete(protect, PostController.deletePost);
+PostRouter.route("/:id").delete(protect, PostController.deletePost);
 PostRouter.route("/like").post(protect, PostController.addLike);
 PostRouter.route("/likes").get(protect, PostController.getLikesByPost);
 PostRouter.route("/unlike").delete(protect, PostController.unlike);
