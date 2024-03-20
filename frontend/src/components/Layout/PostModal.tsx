@@ -23,6 +23,7 @@ import FileUpload from "../Upload";
 import { OutfitService, PostService } from "@/services";
 import { handleError } from "@/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import IOutfit from "@/interfaces/IOutfit";
 
 export const addPostSchema = z.object({
   outfit: z.string({
@@ -79,6 +80,7 @@ const PostModal = () => {
   const {
     data: allOutfits,
     isLoading: outfitLoading,
+    refetch,
   } = useQuery("all-outfits", async () => {
     const outfits = await OutfitService.getAllOutfits({
       search: "",
@@ -92,7 +94,10 @@ const PostModal = () => {
   console.log(allOutfits);
   return (
     <>
-      <Button onClick={onOpen}>Make Post</Button>
+      <Button onClick={() => {
+        refetch();
+        onOpen();
+        }}>Make Post</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} scrollBehavior="inside">
       <FormProvider {...PostForm}>
@@ -137,7 +142,7 @@ const PostModal = () => {
                       label="Outfit"
                       type="dropdown"
                       placeholder="Outfit of choice"
-                      options={allOutfits?.outfits?.map((outfit: any) => outfit.name) || []}
+                      options={allOutfits?.outfits?.map((outfit: IOutfit) => ({label: outfit.name.toString(), id: outfit.id.toString()})) || []}
                       required
                     />
                   <Field

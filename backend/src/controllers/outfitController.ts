@@ -71,7 +71,7 @@ export const getAllOutfits = async (req: Request, res: Response) => {
         "outfit.clothes",
         ClothEntity,
         "cloth",
-        "cloth.media_id = outfit_clothes.cloth_id"
+        "cloth.id = outfit_clothes.cloth_id"
       );
 
     if (search && search !== "") {
@@ -86,13 +86,13 @@ export const getAllOutfits = async (req: Request, res: Response) => {
     if (sortBy && sortOrder) {
       outfits.orderBy(`outfit.${sortBy}`, sortOrder as "ASC" | "DESC");
     }
+
+    const results = await outfits.getMany();
     const total = await outfits.getCount();
     if (page) {
       outfits.offset((Number(page) - 1) & Number(pageSize));
       outfits.limit(Number(pageSize));
     }
-
-    const results = await outfits.getMany();
     return sendSuccess({
       res,
       message: "Outfits fetched successfully",

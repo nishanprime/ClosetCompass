@@ -152,6 +152,7 @@ export const ClothCard = ({
                     boxSize={"200px"}
                     objectFit={"contain"}
                     src={`${API_URL}/files/${cloth?.media_id}`}
+                    alt={cloth?.description}
                   />
                 )}
               </Center>
