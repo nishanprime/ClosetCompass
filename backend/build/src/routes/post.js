@@ -11,7 +11,7 @@ const PostRouter = express_1.default.Router();
 // since we have protec middleware, only authenticated users can access these routes
 PostRouter.route("/all").get(auth_1.protect, index_1.PostController.getAllPosts);
 PostRouter.route("/add").post(auth_1.protect, (0, uploadMiddleware_1.default)("clothe", "clothes"), index_1.PostController.addPost);
-PostRouter.route("/delete").delete(auth_1.protect, index_1.PostController.deletePost);
+PostRouter.route("/:id").delete(auth_1.protect, index_1.PostController.deletePost);
 PostRouter.route("/like").post(auth_1.protect, index_1.PostController.addLike);
 PostRouter.route("/likes").get(auth_1.protect, index_1.PostController.getLikesByPost);
 PostRouter.route("/unlike").delete(auth_1.protect, index_1.PostController.unlike);

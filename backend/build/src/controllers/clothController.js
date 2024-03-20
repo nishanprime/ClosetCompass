@@ -122,14 +122,15 @@ const getAllClothes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getAllClothes = getAllClothes;
 const addCloth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { description, no_of_wears, cloth_id } = req.body;
+    const { description, no_of_wears, cloth_id, tags } = req.body;
     const schema = Yup.object().shape({
         no_of_wears: Yup.number().required("Please enter the number of wears before washing"),
         description: Yup.string().required("Please enter the description of the cloth"),
         cloth_id: Yup.string().optional(),
+        tags: Yup.array().of(Yup.string()),
     });
     try {
-        yield schema.validate({ no_of_wears, description, cloth_id });
+        yield schema.validate({ no_of_wears, description, cloth_id, tags });
         const current_user = req.user;
         const media = yield entity_1.MediaEntity.findOne({
             where: {
@@ -150,6 +151,16 @@ const addCloth = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             wears_remaining: no_of_wears,
             media_id: media.id,
         }).save();
+        if (tags && tags.length > 0) {
+            for (const tag of tags) {
+                const new_tag = yield entity_1.ClothAndTagEntity.create({
+                    cloth_id: cloth.id,
+                    tag_id: parseInt(tag),
+                });
+                console.log("Just created", new_tag);
+                yield new_tag.save();
+            }
+        }
         return (0, utils_1.sendSuccess)({
             res,
             message: "Cloth added successfully",

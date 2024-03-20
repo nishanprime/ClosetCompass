@@ -31,19 +31,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCommentsByPost = exports.deleteComment = exports.updateComment = exports.addComment = exports.undislike = exports.getDislikesByPost = exports.addDislike = exports.unlike = exports.getLikesByPost = exports.addLike = exports.deletePost = exports.addPost = exports.getAllPosts = void 0;
 const entity_1 = require("../entity");
 const utils_1 = require("../utils");
 const helpers_1 = require("../../src/utils/helpers");
 const Yup = __importStar(require("yup"));
-const path_1 = __importDefault(require("path"));
 const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const posts = yield entity_1.PostEntity.find();
+        const posts = yield entity_1.PostEntity.createQueryBuilder("post")
+            .leftJoinAndMapOne("post.user", entity_1.UserEntity, "user", "user.id = post.user_id")
+            .leftJoinAndMapMany("post.outfitAndCloth", entity_1.OutfitAndClothEntity, "outfit_and_cloth", "outfit_and_cloth.outfit_id = post.outfit_id")
+            .leftJoinAndMapMany("post.clothes", // This will map directly to the post entity under the .clothes property
+        entity_1.ClothEntity, "cloth", "cloth.id = outfit_and_cloth.cloth_id")
+            .orderBy("post.created_at", "DESC")
+            .getMany();
         return (0, utils_1.sendSuccess)({
             res,
             message: "Posts fetched successfully",
@@ -57,30 +59,18 @@ const getAllPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getAllPosts = getAllPosts;
 const addPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { text, privacy, outfit_id } = req.body;
+    const { caption, outfit_id, media_id } = req.body;
     const schema = Yup.object().shape({
         outfit_id: Yup.number().required("Requires outfit_id to post"),
-        privacy: Yup.string().required("Provide privacy setting"),
     });
     try {
-        yield schema.validate({ privacy, outfit_id });
+        yield schema.validate({ outfit_id });
         const current_user = req.user;
-        let media;
-        // make sure to add host to the file path and url encode the file path
-        if (req.file) {
-            const file = req.file;
-            const relativePath = path_1.default.relative(".", req.file.path);
-            media = yield entity_1.MediaEntity.create({
-                relative_path: relativePath,
-                media_type: file.mimetype.split("/")[1],
-            }).save();
-        }
         const post = yield entity_1.PostEntity.create({
             user_id: current_user.id,
-            media_id: (media ? media.id : null),
-            text,
+            media_id: media_id,
+            text: caption,
             outfit_id,
-            privacy,
         }).save();
         return (0, utils_1.sendSuccess)({
             res,
@@ -161,7 +151,7 @@ const getLikesByPost = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const likes = yield entity_1.LikesEntity.find({
             where: {
                 post_id: parseInt(post_id),
-            }
+            },
         });
         return (0, utils_1.sendSuccess)({
             res,
@@ -186,7 +176,7 @@ const unlike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const like = yield entity_1.LikesEntity.findOne({
             where: {
                 post_id: parseInt(post_id),
-                user_id: current_user.id
+                user_id: current_user.id,
             },
         });
         if (!like) {
@@ -241,7 +231,7 @@ const getDislikesByPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const dislikes = yield entity_1.DislikesEntity.find({
             where: {
                 post_id: parseInt(post_id),
-            }
+            },
         });
         return (0, utils_1.sendSuccess)({
             res,
@@ -266,7 +256,7 @@ const undislike = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const dislike = yield entity_1.DislikesEntity.findOne({
             where: {
                 post_id: parseInt(post_id),
-                user_id: current_user.id
+                user_id: current_user.id,
             },
         });
         if (!dislike) {
@@ -322,7 +312,7 @@ const updateComment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const { text } = req.body;
     const schema = Yup.object().shape({
         id: Yup.string().optional(),
-        text: Yup.string().optional()
+        text: Yup.string().optional(),
     });
     yield schema.validate({ id, text });
     try {
@@ -393,7 +383,7 @@ const getCommentsByPost = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const comments = yield entity_1.CommentEntity.find({
             where: {
                 post_id: parseInt(post_id),
-            }
+            },
         });
         return (0, utils_1.sendSuccess)({
             res,

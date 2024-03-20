@@ -37,7 +37,7 @@ __decorate([
     __metadata("design:type", Date)
 ], ClothAndTagEntity.prototype, "deleted_at", void 0);
 ClothAndTagEntity = __decorate([
-    (0, typeorm_1.Entity)({ name: "color_and_tags_entity" })
+    (0, typeorm_1.Entity)({ name: "cloth_and_tags_entity" })
 ], ClothAndTagEntity);
 exports.default = ClothAndTagEntity;
 //# sourceMappingURL=cloth_and_tags.entity.js.map
